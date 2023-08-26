@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-08-26T13:22:13.721Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="pxf7IXCjO-7zf01EkwxV" version="21.6.9" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-08-26T13:25:05.701Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="dLIXkLarNMErGior-88A" version="21.6.9" type="github" pages="2">
   <diagram id="FwWFGL6Ienw_dBBi1rKg" name="DiagrammaNonRistrutturato">
     <mxGraphModel dx="954" dy="647" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -407,8 +407,8 @@
         <mxCell id="Tz5j5QaJ7BpJqJ-RXC3K-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="Tz5j5QaJ7BpJqJ-RXC3K-1" source="Tz5j5QaJ7BpJqJ-RXC3K-15" target="Tz5j5QaJ7BpJqJ-RXC3K-52" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="140" y="620" />
-              <mxPoint x="770" y="620" />
+              <mxPoint x="140" y="600" />
+              <mxPoint x="770" y="600" />
               <mxPoint x="770" y="572" />
             </Array>
             <mxPoint x="330" y="436" as="sourcePoint" />
