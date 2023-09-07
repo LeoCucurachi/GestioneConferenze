@@ -1,13 +1,20 @@
-package prova;
+package PGDAO;
 
-import java.sql.*;
+import DAO.PartecipanteDAO;
+import DTO.Partecipante;
+import prova.DBConnection;
 
-public class PartecipanteDAO {
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class PartecipantePGDAO implements PartecipanteDAO {
     private DBConnection db;
     private Connection connection;
     private Statement statement;
 
-    public PartecipanteDAO(){
+    public PartecipantePGDAO(){
         db = DBConnection.getDBConnection();
         connection = db.getConnection();
         try {
@@ -17,10 +24,10 @@ public class PartecipanteDAO {
         }
     }
 
-    public Partecipante getPartecipante(String email){
+    public Partecipante getPartecipante(Integer id){
         Partecipante partecipante = new Partecipante();
         try {
-            String query = "SELECT * FROM partecipante WHERE email = '" + email + "';";
+            String query = "SELECT * FROM partecipante WHERE id_partecipante = " + id + ";";
             ResultSet resultSet = statement.executeQuery(query);
             resultSet.next();
             partecipante.setId(resultSet.getInt("id_partecipante"));

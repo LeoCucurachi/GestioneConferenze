@@ -1,4 +1,4 @@
-package prova;
+package DTO;
 
 public class Partecipante {
     private Integer id;
@@ -49,5 +49,16 @@ public class Partecipante {
 
     public void setIstituzione(String istituzione) {
         this.istituzione = istituzione;
+    }
+
+    @Override
+    public String toString() {
+        return "Partecipante{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", email='" + email + '\'' +
+                ", istituzione='" + istituzione + '\'' +
+                '}';
     }
 }
