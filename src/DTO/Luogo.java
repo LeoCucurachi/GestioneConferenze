@@ -15,6 +15,11 @@ public class Luogo {
         this.conferenze = conferenze;
     }
 
+    public Luogo(String indirizzo, String sede) {
+        this.indirizzo = indirizzo;
+        this.sede = sede;
+    }
+
     public ArrayList<Conferenza> getConferenze() {
         return conferenze;
     }
@@ -55,8 +60,6 @@ public class Luogo {
 
     @Override
     public String toString() {
-        return  "id_luogo=" + id_luogo +
-                ", indirizzo='" + indirizzo + '\'' +
-                ", sede='" + sede + '\'';
+        return  (sede + ", " + indirizzo);
     }
 }

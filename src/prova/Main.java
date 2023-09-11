@@ -24,8 +24,12 @@ public class Main {
 
         ConferenzaPGDAO conferenzaPGDAO = new ConferenzaPGDAO();
         Conferenza c = conferenzaPGDAO.get(4);
+        ArrayList<Conferenza> conferenzas = conferenzaPGDAO.getCurrent();
+        for (Conferenza con : conferenzas) {
+            System.out.println(con.toString());
+            System.out.println("\n");
+        }
 
-        System.out.println(conferenzaPGDAO.getWithSessions(1).getSessioni().toString());
         //  SessionePGDAO sessionePGDAO = new SessionePGDAO();
         //  Sessione s = new Sessione(LocalDate.of(2023, 8, 3), LocalTime.of(18, 00), LocalTime.of(19,00), new Locazione(24, "Quindar", new Luogo(58, "50 Westerfield Plaza", "Technology Institute")),c, par);
         //  sessionePGDAO.InsertSessione(s);

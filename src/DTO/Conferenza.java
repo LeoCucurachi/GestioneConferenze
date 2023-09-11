@@ -7,6 +7,7 @@ public class Conferenza {
     private Integer id;
     private LocalDate data_inizio;
     private LocalDate data_fine;
+    private String descrizione;
     private Luogo luogo;
     private ArrayList<Sessione> sessioni;
 
@@ -38,6 +39,21 @@ public class Conferenza {
         this.data_fine = data_fine;
         this.luogo = luogo;
         this.sessioni = sessioni;
+    }
+
+    public Conferenza(Integer id, LocalDate data_inizio, LocalDate data_fine, String descrizione, Luogo luogo) {
+        this.id = id;
+        this.data_inizio = data_inizio;
+        this.data_fine = data_fine;
+        this.descrizione = descrizione;
+        this.luogo = luogo;
+    }
+
+    public Conferenza(LocalDate data_inizio, LocalDate data_fine, String descrizione, Luogo luogo) {
+        this.data_inizio = data_inizio;
+        this.data_fine = data_fine;
+        this.descrizione = descrizione;
+        this.luogo = luogo;
     }
 
     public Integer getId() {
@@ -77,6 +93,14 @@ public class Conferenza {
     }
 
     public ArrayList<Sessione> getSessioni() {
-        return sessioni;
+        return new ArrayList<Sessione>(sessioni);
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 }
