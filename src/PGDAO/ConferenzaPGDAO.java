@@ -199,7 +199,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
     }
 
     @Override
-    public boolean insert(Conferenza conferenza) {
+    public boolean insert(Conferenza conferenza) throws Exception{
         Connection connection = DBConnection.getDBConnection().getConnection();
         try{
             String sql = "INSERT INTO conferenza (data_inizio, data_fine, descrizione, id_luogo) VALUES (?, ?, ?, ?)";
@@ -219,10 +219,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             }
 
             return true;
-        } catch(SQLException e) {
+        } catch(Exception e) {
             e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
     @Override

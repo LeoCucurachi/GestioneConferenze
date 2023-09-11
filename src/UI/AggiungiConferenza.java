@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 public class AggiungiConferenza extends JFrame{
     Controller controller;
     private JLabel Data_ILabel;
-    private JPanel CalendarPanel;
     private JPanel MainPanel;
     private com.github.lgooddatepicker.components.DatePicker Data_IPicker;
     private JButton AddConferenza;
@@ -21,6 +20,8 @@ public class AggiungiConferenza extends JFrame{
     private JComboBox LuogoComboBox;
     private JLabel DescrizioneLabel;
     private JTextField DescrizioneField;
+    private JButton aggiungiLuogoButton;
+    private JButton indietroButton;
 
     public AggiungiConferenza(Controller c){
         controller = c;

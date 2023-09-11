@@ -53,11 +53,11 @@ public class Controller {
         boolean esito = false;
         if(data_i != null && data_f != null && luogo != null) {
             Conferenza conferenza = new Conferenza(data_i, data_f, descrizione, luogo);
-            esito = conferenzaDAO.insert(conferenza);
-        }
-
-        if(!esito){
-            JOptionPane.showMessageDialog(aggiungiConferenza, "Attenzione, compila tutti i campi");
+            try{
+                esito = conferenzaDAO.insert(conferenza);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(aggiungiConferenza, e.getMessage());
+            }
         }
 
         return esito;

@@ -11,7 +11,7 @@ public interface ConferenzaDAO {
     public ArrayList<Conferenza> getAllWithSessions();
     public ArrayList<Conferenza> getCurrent();
     public ArrayList<Conferenza> getCurrentAndFuture();
-    public boolean insert(Conferenza conferenza);
+    public boolean insert(Conferenza conferenza) throws Exception;
     public boolean update(Integer id, Conferenza conferenza);
     public boolean delete(Integer id);
 }
