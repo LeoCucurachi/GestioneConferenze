@@ -9,6 +9,7 @@ import PGDAO.ConferenzaPGDAO;
 import PGDAO.LuogoPGDAO;
 import UI.AggiungiConferenza;
 import UI.AggiungiLuogo;
+import UI.MainFrame;
 import UI.Prova;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class Controller {
     Prova prova;
     AggiungiConferenza aggiungiConferenza;
     AggiungiLuogo  aggiungiLuogo;
+    MainFrame mainFrame;
 
     public static void main(String [] args){
         Controller controller = new Controller();
@@ -32,9 +34,8 @@ public class Controller {
     public Controller(){
         conferenzaDAO = new ConferenzaPGDAO();
         luogoDAO = new LuogoPGDAO();
-        //prova = new Prova(this);
-        aggiungiConferenza = new AggiungiConferenza(this);
-        aggiungiLuogo = new AggiungiLuogo(this);
+        mainFrame = new MainFrame(this);
+        
     }
 
     public void setConferenceList(JTable table){
@@ -53,7 +54,7 @@ public class Controller {
         table.setModel(tableModel);
     }
 
-    public void CreateConference(LocalDate data_i, LocalDate data_f, Luogo luogo, String descrizione){
+    public void insertConferenza(LocalDate data_i, LocalDate data_f, Luogo luogo, String descrizione){
         try {
             if (data_i != null && data_f != null && luogo != null) {
                 Conferenza conferenza = new Conferenza(data_i, data_f, descrizione, luogo);
@@ -95,7 +96,6 @@ public class Controller {
     }
     public void AggiungiLuogoIndietro(){
         aggiungiLuogo.dispose();
-        aggiungiConferenza.RefreshComboBox();
         aggiungiConferenza.setVisible(true);
     }
 }
