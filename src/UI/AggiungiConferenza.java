@@ -17,7 +17,7 @@ public class AggiungiConferenza extends JFrame{
     private JLabel Data_FLabel;
     private DatePicker Data_FPicker;
     private JLabel LuogoLabel;
-    private JComboBox LuogoComboBox;
+    private JComboBox<Luogo> LuogoComboBox;
     private JLabel DescrizioneLabel;
     private JTextField DescrizioneField;
     private JButton aggiungiLuogoButton;
@@ -39,5 +39,16 @@ public class AggiungiConferenza extends JFrame{
                 controller.CreateConference(Data_IPicker.getDate(), Data_FPicker.getDate(), ((Luogo) LuogoComboBox.getSelectedItem()), DescrizioneField.getText());
             }
         });
+        aggiungiLuogoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.AggiungiConferenzaToAggiungiLuogo();
+            }
+        });
     }
+
+    public void RefreshComboBox(){
+        controller.SetLuoghi(LuogoComboBox);
+    }
+
 }

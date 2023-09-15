@@ -4,10 +4,7 @@ import DAO.LuogoDAO;
 import DTO.Luogo;
 import prova.DBConnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class LuogoPGDAO implements LuogoDAO {
@@ -31,5 +28,25 @@ public class LuogoPGDAO implements LuogoDAO {
             e.printStackTrace();
         }
         return luoghi;
+
+    }
+
+    public void insert(Luogo luogo) throws Exception{
+        Connection connection = DBConnection.getDBConnection().getConnection();
+        try {
+            String sql = "INSERT INTO luogo (indirizzo, sede) VALUES (?, ?);";
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, luogo.getIndirizzo());
+            statement.setString(2, luogo.getSede());
+
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            if(rs.next()){
+                luogo.setId_luogo(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

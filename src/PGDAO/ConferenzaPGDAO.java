@@ -219,8 +219,8 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             }
 
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(SQLException e) {
+
             throw e;
         }
     }

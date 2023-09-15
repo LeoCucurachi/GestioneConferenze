@@ -4,9 +4,11 @@ import DAO.ConferenzaDAO;
 import DAO.LuogoDAO;
 import DTO.Conferenza;
 import DTO.Luogo;
+import Exceptions.NullFieldException;
 import PGDAO.ConferenzaPGDAO;
 import PGDAO.LuogoPGDAO;
 import UI.AggiungiConferenza;
+import UI.AggiungiLuogo;
 import UI.Prova;
 
 import javax.swing.*;
@@ -21,6 +23,7 @@ public class Controller {
     LuogoDAO luogoDAO;
     Prova prova;
     AggiungiConferenza aggiungiConferenza;
+    AggiungiLuogo  aggiungiLuogo;
 
     public static void main(String [] args){
         Controller controller = new Controller();
@@ -31,6 +34,7 @@ public class Controller {
         luogoDAO = new LuogoPGDAO();
         //prova = new Prova(this);
         aggiungiConferenza = new AggiungiConferenza(this);
+        aggiungiLuogo = new AggiungiLuogo(this);
     }
 
     public void setConferenceList(JTable table){
@@ -49,24 +53,49 @@ public class Controller {
         table.setModel(tableModel);
     }
 
-    public boolean CreateConference(LocalDate data_i, LocalDate data_f, Luogo luogo, String descrizione){
-        boolean esito = false;
-        if(data_i != null && data_f != null && luogo != null) {
-            Conferenza conferenza = new Conferenza(data_i, data_f, descrizione, luogo);
-            try{
-                esito = conferenzaDAO.insert(conferenza);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(aggiungiConferenza, e.getMessage());
+    public void CreateConference(LocalDate data_i, LocalDate data_f, Luogo luogo, String descrizione){
+        try {
+            if (data_i != null && data_f != null && luogo != null) {
+                Conferenza conferenza = new Conferenza(data_i, data_f, descrizione, luogo);
+                conferenzaDAO.insert(conferenza);
             }
+            else {
+                throw new NullFieldException();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(aggiungiConferenza, e.getMessage());
         }
-
-        return esito;
     }
 
-    public void SetLuoghi(JComboBox comboBox){
-        DefaultComboBoxModel defaultComboBoxModel = (DefaultComboBoxModel) comboBox.getModel();
+    public void SetLuoghi(JComboBox<Luogo> comboBox){
+        DefaultComboBoxModel<Luogo> defaultComboBoxModel = new DefaultComboBoxModel<>();
         defaultComboBoxModel.addAll(luogoDAO.getAll());
 
         comboBox.setModel(defaultComboBoxModel);
+    }
+
+    public void CreateLuogo(String via, String civico, String paese, String sede){
+        try {
+            if (!via.isBlank() && !civico.isBlank() && !paese.isBlank() && !sede.isBlank()) {
+                Luogo luogo = new Luogo(via + ", " + civico + ", " + paese, sede);
+                luogoDAO.insert(luogo);
+                AggiungiLuogoIndietro();
+            }
+            else {
+                throw new NullFieldException();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(aggiungiLuogo, e.getMessage());
+        }
+    }
+    public void AggiungiConferenzaToAggiungiLuogo(){
+        aggiungiLuogo = new AggiungiLuogo(this);
+        aggiungiLuogo.setVisible(true);
+        aggiungiLuogo.setAlwaysOnTop(true);
+    }
+    public void AggiungiLuogoIndietro(){
+        aggiungiLuogo.dispose();
+        aggiungiConferenza.RefreshComboBox();
+        aggiungiConferenza.setVisible(true);
     }
 }
