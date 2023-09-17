@@ -2,34 +2,35 @@ package DTO;
 
 import java.time.*;
 
-public class Intervento {
+public class Intervento implements ElementoProgramma{
     Integer id_intervento;
     LocalTime ora_inizio;
     LocalTime ora_fine;
     String Abstract;
     Sessione sessione;
+    Partecipante speaker;
 
-    public Integer getId_intervento() {
+    public int getId() {
         return id_intervento;
     }
 
-    public void setId_intervento(Integer id_intervento) {
+    public void setId(Integer id_intervento) {
         this.id_intervento = id_intervento;
     }
 
-    public LocalTime getOra_inizio() {
+    public LocalTime getOraInizio() {
         return ora_inizio;
     }
 
-    public void setOra_inizio(LocalTime ora_inizio) {
+    public void setOraInizio(LocalTime ora_inizio) {
         this.ora_inizio = ora_inizio;
     }
 
-    public LocalTime getOra_fine() {
+    public LocalTime getOraFine() {
         return ora_fine;
     }
 
-    public void setOra_fine(LocalTime ora_fine) {
+    public void setOraFine(LocalTime ora_fine) {
         this.ora_fine = ora_fine;
     }
 
@@ -48,8 +49,22 @@ public class Intervento {
     public void setSessione(Sessione sessione) {
         this.sessione = sessione;
     }
+    
+    public String getTipo() {
+    	return "intervento";
+    }
+    
+    
 
-    @Override
+    public Partecipante getSpeaker() {
+		return speaker;
+	}
+
+	public void setSpeaker(Partecipante speaker) {
+		this.speaker = speaker;
+	}
+
+	@Override
     public String toString() {
         return "Intervento{" +
                 "id_intervento=" + id_intervento +

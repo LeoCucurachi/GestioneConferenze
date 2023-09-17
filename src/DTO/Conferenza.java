@@ -9,7 +9,7 @@ public class Conferenza {
     private LocalDate data_fine;
     private String descrizione;
     private Luogo luogo;
-    private ArrayList<Sessione> sessioni;
+    private ArrayList<Sessione> sessioni = new ArrayList<Sessione>();
 
     @Override
     public String toString() {

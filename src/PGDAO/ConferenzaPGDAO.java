@@ -6,6 +6,7 @@ import DTO.Luogo;
 import DTO.Sessione;
 import prova.DBConnection;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +18,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         Connection connection = DBConnection.getDBConnection().getConnection();
         Conferenza conferenza = null;
         try{
-            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo AS l WHERE id_conferenza = ?";
+            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo AS l WHERE id_conferenza = ? ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setInt(1, id);
@@ -31,8 +32,13 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 String indirizzo = rs.getString("indirizzo");
                 String sede = rs.getString("sede");
                 Luogo luogo = new Luogo(id_luogo, indirizzo, sede);
-                conferenza = new Conferenza(id_conferenza, data_inizio, data_fine, luogo);
+                String descrizione = rs.getString("descrizione");
+                conferenza = new Conferenza(id_conferenza, data_inizio, data_fine, descrizione, luogo);
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +50,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Conferenza> conferenze = new ArrayList<Conferenza>();
         try{
-            String sql = "SELECT * FROM conferenza NATURAL JOIN luogo";
+            String sql = "SELECT * FROM conferenza NATURAL JOIN luogo ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -60,6 +66,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 Luogo luogo = new Luogo(id_luogo, indirizzo, sede);
                 conferenze.add(new Conferenza(id_conferenza, data_inizio, data_fine, descrizione, luogo));
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -67,11 +77,43 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
     }
 
     @Override
+    public ArrayList<Conferenza> getContainsSede(String src) {
+        Connection connection = DBConnection.getDBConnection().getConnection();
+        ArrayList<Conferenza> conferenze = new ArrayList<Conferenza>();
+        try{
+            String sql = "SELECT * FROM conferenza NATURAL JOIN luogo WHERE LOWER(luogo.sede) LIKE LOWER('%" + src + "%') ORDER BY id_conferenza";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()){
+                Integer id_conferenza = rs.getInt("id_conferenza");
+                LocalDate data_inizio = rs.getDate("data_inizio").toLocalDate();
+                LocalDate data_fine = rs.getDate("data_fine").toLocalDate();
+                Integer id_luogo = rs.getInt("id_luogo");
+                String indirizzo = rs.getString("indirizzo");
+                String sede = rs.getString("sede");
+                String descrizione = rs.getString("descrizione");
+                Luogo luogo = new Luogo(id_luogo, indirizzo, sede);
+                conferenze.add(new Conferenza(id_conferenza, data_inizio, data_fine, descrizione, luogo));
+            }
+            
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return conferenze;
+    }
+    
+    @Override
     public Conferenza getWithSessions(Integer id) {
         Connection connection = DBConnection.getDBConnection().getConnection();
         Conferenza conferenza = null;
         try{
-            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo AS l WHERE id_conferenza = ?";
+            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo AS l WHERE id_conferenza = ? ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setInt(1, id);
@@ -98,7 +140,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
                 conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, conferenza));
             }
-
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -110,7 +155,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Conferenza> conferenze = new ArrayList<Conferenza>();
         try{
-            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo";
+            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -139,6 +184,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                     conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, conferenza));
                 }
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -151,7 +200,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Conferenza> conferenze = new ArrayList<Conferenza>();
         try{
-            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo WHERE c.data_inizio <= NOW() AND c.data_fine >= NOW()";
+            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo WHERE c.data_inizio <= NOW() AND c.data_fine >= NOW() ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -166,6 +215,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 Luogo luogo = new Luogo(id_luogo, indirizzo, sede);
                 conferenze.add(new Conferenza(id_conferenza, data_inizio, data_fine, luogo));
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -177,7 +230,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Conferenza> conferenze = new ArrayList<Conferenza>();
         try{
-            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo WHERE c.data_fine >= NOW()";
+            String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo WHERE c.data_fine >= NOW() ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             ResultSet rs = statement.executeQuery();
@@ -192,6 +245,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 Luogo luogo = new Luogo(id_luogo, indirizzo, sede);
                 conferenze.add(new Conferenza(id_conferenza, data_inizio, data_fine, luogo));
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -217,6 +274,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             if(rs.next()){
                 conferenza.setId(rs.getInt(1));
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
 
             return true;
         } catch(SQLException e) {
@@ -232,6 +293,9 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             String sql = "DELETE FROM conferenza WHERE id_conferenza = " + id + ";";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeUpdate();
+            
+            statement.close();
+            connection.close();
             return true;
         } catch(SQLException e) {
             e.printStackTrace();
@@ -240,10 +304,10 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
     }
 
     @Override
-    public boolean update(Integer id, Conferenza conferenza) {
+    public void update(Integer id, Conferenza conferenza) throws Exception{
         Connection connection = DBConnection.getDBConnection().getConnection();
         try{
-            String sql = "UPDATE conferenza SET (data_inizio = ?, data_fine = ?, descrizione = ?, id_luogo = ?) WHERE id_conferenza = " + id + ";";
+            String sql = "UPDATE conferenza SET data_inizio = ?, data_fine = ?, descrizione = ?, id_luogo = ? WHERE id_conferenza = " + id + ";";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setDate(1, Date.valueOf(conferenza.getData_inizio().toString()));
@@ -253,10 +317,12 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
 
             statement.executeUpdate();
             
-            return true;
+            statement.close();
+            connection.close();
+            
         } catch(SQLException e) {
             e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 }

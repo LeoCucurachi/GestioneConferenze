@@ -34,4 +34,28 @@ public class Locazione {
     public void setLuogo(Luogo luogo) {
         this.luogo = luogo;
     }
+
+	@Override
+	public String toString() {
+		if(nome != null) {	
+			return (nome + ", " + luogo.toString());
+		} else {
+			return "";
+		}
+	}
+	
+	@Override
+    public boolean equals(final Object obj) {
+		
+    	if(obj == this) {
+    		return true;
+    	}
+    	else if (obj == null || !(obj instanceof Locazione)) {
+    		return false;
+    	}
+    	
+    	Locazione l = (Locazione)obj;
+
+    	return (this.id.equals(l.getId()) && this.luogo.equals(l.getLuogo()) && this.nome.equals(l.getNome()));
+	}
 }

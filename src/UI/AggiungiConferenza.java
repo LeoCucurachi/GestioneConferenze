@@ -23,6 +23,7 @@ public class AggiungiConferenza extends JFrame {
 	private JPanel contentPane;
 	private JTextField descrizioneField;
 	private Controller controller;
+	private JComboBox<Luogo> luogoComboBox;
 	/**
 	 * Create the frame.
 	 */
@@ -30,6 +31,7 @@ public class AggiungiConferenza extends JFrame {
 		controller = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 616, 427);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -56,9 +58,10 @@ public class AggiungiConferenza extends JFrame {
 		luogoLabel.setBounds(6, 159, 61, 16);
 		contentPane.add(luogoLabel);
 		
-		JComboBox<Luogo> luogoComboBox = new JComboBox<Luogo>();
+		luogoComboBox = new JComboBox<Luogo>();
 		luogoComboBox.setBounds(0, 187, 233, 27);
 		contentPane.add(luogoComboBox);
+		controller.SetLuoghi(luogoComboBox);
 		
 		JButton aggiungiLuogoButton = new JButton("Aggiungi Luogo");
 		aggiungiLuogoButton.addActionListener(new ActionListener() {
@@ -90,9 +93,16 @@ public class AggiungiConferenza extends JFrame {
 		JButton indietroButton = new JButton("Indietro");
 		indietroButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.AggiungiConferenzaIndietro();
 			}
 		});
 		indietroButton.setBounds(6, 364, 117, 29);
 		contentPane.add(indietroButton);
+		
+		setVisible(true);
+	}
+	
+	public void RefreshLuoghiComboBox() {
+		controller.SetLuoghi(luogoComboBox);
 	}
 }

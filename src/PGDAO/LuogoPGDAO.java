@@ -44,6 +44,10 @@ public class LuogoPGDAO implements LuogoDAO {
             if(rs.next()){
                 luogo.setId_luogo(rs.getInt(1));
             }
+            
+            rs.close();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;

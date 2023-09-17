@@ -2,6 +2,8 @@ package DTO;
 
 import java.util.ArrayList;
 
+import org.postgresql.shaded.com.ongres.scram.common.message.ClientFinalMessage;
+
 public class Luogo {
     private Integer id_luogo;
     private String indirizzo;
@@ -61,5 +63,19 @@ public class Luogo {
     @Override
     public String toString() {
         return  (sede + ", " + indirizzo);
+    }
+    
+    @Override
+    public boolean equals(final Object obj) {
+    	if(obj == this) {
+    		return true;
+    	}
+    	else if(obj == null || !(obj instanceof Luogo)) {
+    		return false;
+    	}
+    	
+    	Luogo luogo = (Luogo)obj;
+    	    	
+    	return (this.id_luogo == luogo.getId_luogo() && this.indirizzo.equals(luogo.getIndirizzo()) && this.sede.equals(luogo.getSede()));
     }
 }

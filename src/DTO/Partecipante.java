@@ -10,8 +10,17 @@ public class Partecipante {
     public Partecipante(){
 
     }
+    
+    
 
-    public Integer getId() {
+    public Partecipante(Integer id) {
+		super();
+		this.id = id;
+	}
+
+
+
+	public Integer getId() {
         return id;
     }
 

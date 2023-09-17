@@ -46,6 +46,16 @@ public class Sessione {
         this.conferenza = conferenza;
         this.coordinatore = coordinatore;
     }
+    
+    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza) {
+        this.id = id;
+        this.data_sessione = data_sessione;
+        this.ora_inizio = ora_inizio;
+        this.ora_fine = ora_fine;
+        this.locazione = locazione;
+        this.conferenza = conferenza;
+    }
+    
 
     public LocalDate getData_sessione() {
         return data_sessione;
@@ -112,5 +122,19 @@ public class Sessione {
                 ", conferenza=" + conferenza +
                 ", coordinatore=" + coordinatore +
                 '}';
+    }
+    
+    @Override
+    public boolean equals(final Object obj) {
+    	if(obj == this) {
+    		return true;
+    	}
+    	else if (obj == null || !(obj instanceof Sessione)) {
+    		return false;
+    	}
+    	
+    	Sessione sessione = (Sessione)obj;
+    	
+    	return (this.id == sessione.id && this.data_sessione.equals(sessione.getData_sessione()) && this.ora_inizio.equals(sessione.getOra_inizio()) && this.ora_fine.equals(sessione.getOra_fine()) && this.locazione.equals(sessione.locazione) && this.conferenza.equals(sessione.getConferenza()));
     }
 }

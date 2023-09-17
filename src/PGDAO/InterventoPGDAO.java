@@ -5,6 +5,7 @@ import DTO.Intervento;
 import DTO.Sessione;
 import prova.DBConnection;
 
+import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,36 +13,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class InterventoPGDAO implements InterventoDAO {
-    private DBConnection db;
-    private Connection connection;
-    private Statement statement;
 
     public InterventoPGDAO(){
-        db = DBConnection.getDBConnection();
-        connection = db.getConnection();
-        try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public ArrayList<Intervento> getInterventi(Sessione sessione){
+    	Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Intervento> interventi = new ArrayList<Intervento>();
         try {
-            String query = "SELECT * FROM intervento WHERE id_sessione = " + sessione.getId() + ";";
-            ResultSet resultSet = statement.executeQuery(query);
+            String sql = "SELECT * FROM intervento WHERE id_sessione = " + sessione.getId() + " ORDER BY ora_inizio, ora_fine;";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
 
             while(resultSet.next()) {
                 Intervento intervento = new Intervento();
-                intervento.setId_intervento(resultSet.getInt("id_intervento"));
-                intervento.setOra_inizio(resultSet.getTime("ora_inizio").toLocalTime());
-                intervento.setOra_fine(resultSet.getTime("ora_fine").toLocalTime());
+                intervento.setId(resultSet.getInt("id_intervento"));
+                intervento.setOraInizio(resultSet.getTime("ora_inizio").toLocalTime());
+                intervento.setOraFine(resultSet.getTime("ora_fine").toLocalTime());
                 intervento.setAbstract(resultSet.getString("abstract"));
                 intervento.setSessione(sessione);
 
                 interventi.add(intervento);
             }
+            
+            resultSet.close();
+            statement.close();
+            connection.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
