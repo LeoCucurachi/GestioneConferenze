@@ -3,6 +3,7 @@ package PGDAO;
 import DAO.SessioneDAO;
 import DTO.Conferenza;
 import DTO.Locazione;
+import DTO.Partecipante;
 import DTO.Sessione;
 import Exceptions.DataFineDopoDataInizioException;
 import prova.DBConnection;
@@ -47,7 +48,7 @@ public class SessionePGDAO implements SessioneDAO {
     	ArrayList<Sessione> sessioni = new ArrayList<Sessione>();
     	Connection connection = DBConnection.getDBConnection().getConnection();
     	try {
-    		String sql = "SELECT * FROM sessione s LEFT JOIN locazione l ON s.id_locazione = l.id_locazione WHERE s.id_conferenza = " + conferenza.getId() + " ORDER BY data_sessione, ora_inizio, ora_fine;";
+    		String sql = "SELECT * FROM sessione s LEFT JOIN locazione l ON s.id_locazione = l.id_locazione LEFT JOIN partecipante p ON s.coordinatore = p.id_partecipante WHERE s.id_conferenza = " + conferenza.getId() + " ORDER BY data_sessione, ora_inizio, ora_fine;";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			ResultSet rs = statement.executeQuery();
@@ -58,7 +59,8 @@ public class SessionePGDAO implements SessioneDAO {
                 LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
                 Locazione locazione = new Locazione(rs.getInt("id_locazione"), rs.getString("nome"), conferenza.getLuogo());
-                Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza);
+                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("istituzione"));
+                Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza, coordinatore);
                 System.out.println(sessione);
                 conferenza.addSessione(sessione);
                 
@@ -82,7 +84,7 @@ public class SessionePGDAO implements SessioneDAO {
     	ArrayList<Sessione> sessioni = new ArrayList<Sessione>();
     	Connection connection = DBConnection.getDBConnection().getConnection();
     	try {
-    		String sql = "SELECT * FROM sessione s JOIN locazione l ON s.id_locazione = l.id_locazione JOIN conferenza c ON s.id_conferenza = c.id_conferenza WHERE s.data_sessione = '" + data.toString() + "' ORDER BY data_sessione, ora_inizio, ora_fine;";
+    		String sql = "SELECT * FROM sessione s JOIN locazione l ON s.id_locazione = l.id_locazione JOIN conferenza c ON s.id_conferenza = c.id_conferenza LEFT JOIN partecipante p ON s.coordinatore = p.id_partecipante WHERE s.data_sessione = '" + data.toString() + "' ORDER BY data_sessione, ora_inizio, ora_fine;";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			
 			ResultSet rs = statement.executeQuery();
@@ -93,7 +95,8 @@ public class SessionePGDAO implements SessioneDAO {
                 LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
                 Conferenza conferenza = new Conferenza(rs.getInt("id_conferenza"), rs.getDate("data_inizio").toLocalDate(), rs.getDate("data_fine").toLocalDate(), rs.getString("descrizione"), locazione.getLuogo());
-                Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza);
+                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("istituzione"));
+                Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza, coordinatore);
                 conferenza.addSessione(sessione);
                 
                 sessioni.add(sessione);

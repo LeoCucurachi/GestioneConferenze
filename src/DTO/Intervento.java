@@ -17,8 +17,23 @@ public class Intervento implements ElementoProgramma{
     public void setId(Integer id_intervento) {
         this.id_intervento = id_intervento;
     }
+    
+    public Intervento() {
+    	
+    }
 
-    public LocalTime getOraInizio() {
+    public Intervento(Integer id_intervento, LocalTime ora_inizio, LocalTime ora_fine, String abstract1,
+			Sessione sessione, Partecipante speaker) {
+		super();
+		this.id_intervento = id_intervento;
+		this.ora_inizio = ora_inizio;
+		this.ora_fine = ora_fine;
+		Abstract = abstract1;
+		this.sessione = sessione;
+		this.speaker = speaker;
+	}
+
+	public LocalTime getOraInizio() {
         return ora_inizio;
     }
 
@@ -50,7 +65,7 @@ public class Intervento implements ElementoProgramma{
         this.sessione = sessione;
     }
     
-    public String getTipo() {
+    public String getTipoNom() {
     	return "intervento";
     }
     

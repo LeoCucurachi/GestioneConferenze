@@ -17,6 +17,14 @@ public class Partecipante {
 		super();
 		this.id = id;
 	}
+    
+    public Partecipante(int id, String nome, String cognome, String email, String istituzione) {
+    	this.id = id;
+    	this.nome = nome;
+    	this.cognome = cognome;
+    	this.email = email;
+    	this.istituzione = istituzione;
+    }
 
 
 
@@ -62,12 +70,6 @@ public class Partecipante {
 
     @Override
     public String toString() {
-        return "Partecipante{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", email='" + email + '\'' +
-                ", istituzione='" + istituzione + '\'' +
-                '}';
+        return nome + " " + cognome + ", " + email + ", " + istituzione;
     }
 }

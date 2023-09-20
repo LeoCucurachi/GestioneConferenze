@@ -1,12 +1,16 @@
 package prova;
 
 import DAO.ConferenzaDAO;
+import DAO.EventoDAO;
 import DAO.IntervalloDAO;
 import DAO.InterventoDAO;
 import DAO.LocazioneDAO;
 import DAO.LuogoDAO;
+import DAO.PartecipanteDAO;
 import DAO.SessioneDAO;
 import DTO.Conferenza;
+import DTO.ElementoProgramma;
+import DTO.Evento;
 import DTO.Intervallo;
 import DTO.Intervento;
 import DTO.Locazione;
@@ -15,12 +19,15 @@ import DTO.Partecipante;
 import DTO.Sessione;
 import Exceptions.NullFieldException;
 import PGDAO.ConferenzaPGDAO;
+import PGDAO.EventoPGDAO;
 import PGDAO.IntervalloPGDAO;
 import PGDAO.InterventoPGDAO;
 import PGDAO.LocazionePGDAO;
 import PGDAO.LuogoPGDAO;
+import PGDAO.PartecipantePGDAO;
 import PGDAO.SessionePGDAO;
 import UI.AggiungiConferenza;
+import UI.AggiungiElementoProgramma;
 import UI.AggiungiLuogo;
 import UI.AggiungiSessione;
 import UI.MainFrame;
@@ -50,6 +57,8 @@ public class Controller {
     LocazioneDAO locazioneDAO;
     IntervalloDAO intervalloDAO;
     InterventoDAO interventoDAO;
+    EventoDAO eventoDAO;
+    PartecipanteDAO partecipanteDAO;
     
     AggiungiConferenza aggiungiConferenza;
     AggiungiLuogo  aggiungiLuogo;
@@ -60,6 +69,8 @@ public class Controller {
     AggiungiSessione aggiungiSessione;
     ModificaSessione modificaSessione;
     VisualizzaProgramma visualizzaProgramma;
+    AggiungiElementoProgramma aggiungiElementoProgramma;
+//    VisualizzaIstituzioni visualizzaIstituzioni;
 
     
     	
@@ -78,8 +89,10 @@ public class Controller {
         locazioneDAO = new LocazionePGDAO();
         interventoDAO = new InterventoPGDAO();
         intervalloDAO = new IntervalloPGDAO();
+        eventoDAO = new EventoPGDAO();
+        partecipanteDAO = new PartecipantePGDAO();
         
-        mainFrame = new MainFrame(this);
+        visualizzaConferenze = new VisualizzaConferenze(this);
         
     }
 
@@ -122,21 +135,9 @@ public class Controller {
     	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
     	tableModel.setRowCount(0);
     	System.out.println("qui");
-    	ArrayList<Conferenza> conferenze = conferenzaDAO.getContainsSede(src);
+    	ArrayList<Conferenza> conferenze = conferenzaDAO.getAll();
     	for (Conferenza conferenza:conferenze) {
     		boolean condition = (from == null && to == null) || (from != null && to == null && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))) || (from == null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to))) || (from != null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to)) && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))); 
-//    		if((from == null && to == null)) {
-//    			tableModel.addRow(new Object[]{conferenza.getId(), conferenza.getDescrizione(), conferenza.getData_inizio(), conferenza.getData_fine(), conferenza.getLuogo()});
-//    		}
-//    		else if(from != null && to == null && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))) {
-//    			tableModel.addRow(new Object[]{conferenza.getId(), conferenza.getDescrizione(), conferenza.getData_inizio(), conferenza.getData_fine(), conferenza.getLuogo()});
-//    		}
-//    		else if(from == null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to))) {
-//    			tableModel.addRow(new Object[]{conferenza.getId(), conferenza.getDescrizione(), conferenza.getData_inizio(), conferenza.getData_fine(), conferenza.getLuogo()});
-//    		}
-//    		else if(from != null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to)) && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))) {
-//    			tableModel.addRow(new Object[]{conferenza.getId(), conferenza.getDescrizione(), conferenza.getData_inizio(), conferenza.getData_fine(), conferenza.getLuogo()});
-//    		}
     		if(condition) {
     			tableModel.addRow(new Object[]{conferenza.getId(), conferenza.getDescrizione(), conferenza.getData_inizio(), conferenza.getData_fine(), conferenza.getLuogo(), conferenza});
     		}
@@ -158,8 +159,7 @@ public class Controller {
     }
     
     public void VisualizzaConferenzeIndietro() {
-    	visualizzaConferenze.dispose();
-    	mainFrame.setVisible(true);
+    	System.exit(0);
     }
 
 	public void VisualizzaConferenzeToModificaConferenza(Conferenza c) {
@@ -306,7 +306,7 @@ public class Controller {
     	tableModel.setRowCount(0);
     	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
     	for (Sessione sessione:sessioni) {
-            tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione});
+            tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore()});
         }
 	}
 	
@@ -316,7 +316,7 @@ public class Controller {
     	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
     	for (Sessione sessione:sessioni) {
     		if(date == null || (date != null && sessione.getData_sessione().isEqual(date)))
-    			tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione});
+    			tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore()});
         }
 	}
 	
@@ -430,9 +430,9 @@ public class Controller {
 		
         DefaultTableColumnModel defaultTableColumnModel = (DefaultTableColumnModel)table.getColumnModel();
 
-        defaultTableColumnModel.getColumn(1).setPreferredWidth(100);
-        defaultTableColumnModel.getColumn(1).setMaxWidth(100);
-        defaultTableColumnModel.getColumn(1).setMinWidth(100);
+        defaultTableColumnModel.getColumn(1).setPreferredWidth(200);
+        defaultTableColumnModel.getColumn(1).setMaxWidth(200);
+        defaultTableColumnModel.getColumn(1).setMinWidth(200);
         
         defaultTableColumnModel.getColumn(2).setPreferredWidth(60);
         defaultTableColumnModel.getColumn(2).setMaxWidth(60);
@@ -441,6 +441,9 @@ public class Controller {
         defaultTableColumnModel.getColumn(3).setPreferredWidth(60);
         defaultTableColumnModel.getColumn(3).setMaxWidth(60);
         defaultTableColumnModel.getColumn(3).setMinWidth(60);
+        
+        defaultTableColumnModel.getColumn(5).setPreferredWidth(300);
+        defaultTableColumnModel.getColumn(5).setMinWidth(300);
         
         defaultTableColumnModel.removeColumn(table.getColumn("ID")); 
         defaultTableColumnModel.removeColumn(table.getColumn("Elemento Programma"));  
@@ -451,12 +454,173 @@ public class Controller {
     	tableModel.setRowCount(0);
     	ArrayList<Intervento> interventi = interventoDAO.getInterventi(sessione);
     	for (Intervento intervento:interventi) {
-    		tableModel.addRow(new Object[]{intervento.getId(), intervento.getTipo(), intervento.getOraInizio(), intervento.getOraFine(), intervento.getAbstract(), intervento.getSpeaker(), intervento});
+    		tableModel.addRow(new Object[]{intervento.getId(), intervento.getTipoNom(), intervento.getOraInizio(), intervento.getOraFine(), intervento.getAbstract(), intervento.getSpeaker(), intervento});
     	}
     	ArrayList<Intervallo> intervalli = intervalloDAO.getIntervalli(sessione);
     	for (Intervallo intervallo:intervalli) {
-    		tableModel.addRow(new Object[]{intervallo.getId(), intervallo.getTipo(), intervallo.getOraInizio(), intervallo.getOraFine(), "", "", intervallo});
+    		tableModel.addRow(new Object[]{intervallo.getId(), intervallo.getTipoNom(), intervallo.getOraInizio(), intervallo.getOraFine(), "", "", intervallo});
+    	}
+    	ArrayList<Evento> eventi = eventoDAO.getEventi(sessione);
+    	for (Evento evento:eventi) {
+    		tableModel.addRow(new Object[]{evento.getId(), evento.getTipoNom(), evento.getOraInizio(), evento.getOraFine(), "", "", evento});
     	}
 	
 	}
+	
+	public void insertIntervallo(LocalTime ora_inizio, LocalTime ora_fine, String tipo, Sessione sessione) {
+		try {
+			if(ora_inizio != null && ora_fine != null && tipo != null && sessione != null) {
+				Intervallo intervallo = new Intervallo(0, ora_inizio, ora_fine, tipo, sessione);
+				intervalloDAO.insert(intervallo);
+				visualizzaProgramma.RefreshProgrammaTable();
+				AggiungiElementoProgrammaIndietro();
+			}
+			else {
+				throw new NullFieldException();
+			}
+		} catch (Exception e) {
+            JOptionPane.showMessageDialog(aggiungiSessione, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void insertEvento(LocalTime ora_inizio, LocalTime ora_fine, String tipo, Sessione sessione) {
+		try {
+			if(ora_inizio != null && ora_fine != null && tipo != null && sessione != null) {
+				Evento evento = new Evento(0, ora_inizio, ora_fine, tipo, sessione);
+				eventoDAO.insert(evento);
+				visualizzaProgramma.RefreshProgrammaTable();
+				AggiungiElementoProgrammaIndietro();
+			}
+			else {
+				throw new NullFieldException();
+			}
+		} catch (Exception e) {
+            JOptionPane.showMessageDialog(aggiungiSessione, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void insertIntervento(LocalTime ora_inizio, LocalTime ora_fine, String abstr, int row, JTable partecipantiTable, Sessione sessione) {
+		try {
+			if(ora_inizio != null && ora_fine != null && row >= 0 && sessione != null) {
+				Intervento intervento = new Intervento(0, ora_inizio, ora_fine, abstr, sessione, (Partecipante)partecipantiTable.getModel().getValueAt(row, 5));
+				interventoDAO.insert(intervento);
+				visualizzaProgramma.RefreshProgrammaTable();
+				AggiungiElementoProgrammaIndietro();
+			}
+			else {
+				throw new NullFieldException();
+			}
+		} catch (Exception e) {
+            JOptionPane.showMessageDialog(aggiungiSessione, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void VisualizzaProgrammaAnnullaInserimento(JPanel addPanel) {
+		addPanel.setVisible(false);
+	}
+	
+	public void VisualizzaProgrammaIndietro() {
+		visualizzaProgramma.dispose();
+		visualizzaSessioni.setVisible(true);
+	}
+	
+	// AggiungiElementoProgramma
+	
+	public void VisualizzaProgrammaToAggiungiElementoProgramma(Sessione s) {
+		visualizzaProgramma.setVisible(false);
+		aggiungiElementoProgramma = new AggiungiElementoProgramma(this, s);
+	}
+	public void SetIntervalloTipiComboBox(JComboBox<String> comboBox) {
+		DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel<String>();
+		defaultComboBoxModel.addAll(intervalloDAO.getEnumTypes());
+		comboBox.setModel(defaultComboBoxModel);
+	}
+	
+	public void AggiungiElementoProgrammaIndietro() {
+		aggiungiElementoProgramma.dispose();
+		visualizzaProgramma.setVisible(true);
+	}
+	
+	public void SetEventoTipiComboBox(JComboBox<String> comboBox) {
+		DefaultComboBoxModel<String> defaultComboBoxModel = new DefaultComboBoxModel<String>();
+		defaultComboBoxModel.addAll(eventoDAO.getEnumTypes());
+		comboBox.setModel(defaultComboBoxModel);
+	}
+	
+	public void SetSpeakerComboBox(JComboBox<Partecipante> comboBox) {
+		DefaultComboBoxModel<Partecipante> defaultComboBoxModel = new DefaultComboBoxModel<Partecipante>();
+		defaultComboBoxModel.addAll(partecipanteDAO.getAll());
+		comboBox.setModel(defaultComboBoxModel);
+	}
+	
+	public void SetPartecipantiTableModel(JTable table) {
+		table.setModel(new PartecipanteTableModel());
+		table.setAutoCreateRowSorter(true);
+		
+        DefaultTableColumnModel defaultTableColumnModel = (DefaultTableColumnModel)table.getColumnModel();
+
+        defaultTableColumnModel.getColumn(1).setPreferredWidth(200);
+        defaultTableColumnModel.getColumn(1).setMaxWidth(200);
+        defaultTableColumnModel.getColumn(1).setMinWidth(200);
+        
+        defaultTableColumnModel.getColumn(2).setPreferredWidth(60);
+        defaultTableColumnModel.getColumn(2).setMaxWidth(60);
+        defaultTableColumnModel.getColumn(2).setMinWidth(60);
+        
+        defaultTableColumnModel.getColumn(3).setPreferredWidth(60);
+        defaultTableColumnModel.getColumn(3).setMaxWidth(60);
+        defaultTableColumnModel.getColumn(3).setMinWidth(60);
+        
+        defaultTableColumnModel.getColumn(5).setPreferredWidth(300);
+        defaultTableColumnModel.getColumn(5).setMinWidth(300);
+        
+        defaultTableColumnModel.removeColumn(table.getColumn("ID")); 
+        defaultTableColumnModel.removeColumn(table.getColumn("Partecipante"));
+	
+	}
+	
+	public void SetPartecipanti(JTable table) {
+    	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+    	tableModel.setRowCount(0);
+    	ArrayList<Partecipante> partecipanti = partecipanteDAO.getAll();
+    	for (Partecipante partecipante:partecipanti) {
+    		tableModel.addRow(new Object[]{partecipante.getId(), partecipante.getNome(), partecipante.getCognome(), partecipante.getEmail(), partecipante.getIstituzione(), partecipante});
+    	}
+	}
+	
+	public void deleteElementoProgramma(JTable table, int row) {
+		int id = (int)table.getModel().getValueAt(row, 0);	
+		ElementoProgramma elementoProgramma = (ElementoProgramma)table.getModel().getValueAt(row, 6);
+		if(elementoProgramma instanceof Intervallo) {
+			String msg = "Sei sicuro di voler eliminare l'intervallo delle " + (LocalTime)table.getModel().getValueAt(row, 2);
+			int result = JOptionPane.showConfirmDialog(visualizzaConferenze, msg, "Eliminazione Sessione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (result == 0) {
+				intervalloDAO.delete(elementoProgramma.getId());
+				table.removeRowSelectionInterval(row, row);
+
+			}
+		}
+		else if(elementoProgramma instanceof Intervento) {
+			String msg = "Sei sicuro di voler eliminare l'intervento delle " + (LocalTime)table.getModel().getValueAt(row, 2);
+			int result = JOptionPane.showConfirmDialog(visualizzaConferenze, msg, "Eliminazione Sessione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (result == 0) {
+				interventoDAO.delete(elementoProgramma.getId());
+				table.removeRowSelectionInterval(row, row);
+
+			}
+		}
+		else if(elementoProgramma instanceof Evento) {
+			String msg = "Sei sicuro di voler eliminare l'evento delle " + (LocalTime)table.getModel().getValueAt(row, 2);
+			int result = JOptionPane.showConfirmDialog(visualizzaConferenze, msg, "Eliminazione Sessione", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if (result == 0) {
+				eventoDAO.delete(elementoProgramma.getId());
+				table.removeRowSelectionInterval(row, row);
+
+			}
+		}
+		else {
+			return;
+		}
+	}
+	
 }

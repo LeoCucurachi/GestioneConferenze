@@ -8,37 +8,34 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class PartecipantePGDAO implements PartecipanteDAO {
-    private DBConnection db;
-    private Connection connection;
-    private Statement statement;
 
-    public PartecipantePGDAO(){
-        db = DBConnection.getDBConnection();
-        connection = db.getConnection();
+    public ArrayList<Partecipante> getAll(){
+    	Connection connection = DBConnection.getDBConnection().getConnection();
+        ArrayList<Partecipante> partecipanti = new ArrayList<Partecipante>();
         try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Partecipante getPartecipante(Integer id){
-        Partecipante partecipante = new Partecipante();
-        try {
-            String query = "SELECT * FROM partecipante WHERE id_partecipante = " + id + ";";
-            ResultSet resultSet = statement.executeQuery(query);
-            resultSet.next();
-            partecipante.setId(resultSet.getInt("id_partecipante"));
-            partecipante.setNome(resultSet.getString("nome"));
-            partecipante.setCognome(resultSet.getString("cognome"));
-            partecipante.setEmail(resultSet.getString("email"));
+            String sql = "SELECT * FROM partecipante ORDER BY nome, cognome, email;";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()) {         	
+            	int id = rs.getInt("id_partecipante");
+            	String nome = rs.getString("nome");
+            	String cognome = rs.getString("cognome");
+            	String email = rs.getString("email");
+            	String istituzione = rs.getString("istituzione");
+            	partecipanti.add(new Partecipante(id, nome, cognome, email, istituzione));
+            }
+            
+            rs.close();
+            statement.close();
+            connection.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return partecipante;
+        return partecipanti;
     }
 }

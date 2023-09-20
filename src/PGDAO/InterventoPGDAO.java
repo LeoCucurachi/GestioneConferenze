@@ -2,14 +2,18 @@ package PGDAO;
 
 import DAO.InterventoDAO;
 import DTO.Intervento;
+import DTO.Partecipante;
 import DTO.Sessione;
 import prova.DBConnection;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.security.interfaces.RSAKey;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class InterventoPGDAO implements InterventoDAO {
@@ -21,22 +25,23 @@ public class InterventoPGDAO implements InterventoDAO {
     	Connection connection = DBConnection.getDBConnection().getConnection();
         ArrayList<Intervento> interventi = new ArrayList<Intervento>();
         try {
-            String sql = "SELECT * FROM intervento WHERE id_sessione = " + sessione.getId() + " ORDER BY ora_inizio, ora_fine;";
+            String sql = "SELECT * FROM intervento NATURAL JOIN partecipante WHERE id_sessione = " + sessione.getId() + " ORDER BY ora_inizio, ora_fine;";
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(sql);
 
-            while(resultSet.next()) {
+            while(rs.next()) {
                 Intervento intervento = new Intervento();
-                intervento.setId(resultSet.getInt("id_intervento"));
-                intervento.setOraInizio(resultSet.getTime("ora_inizio").toLocalTime());
-                intervento.setOraFine(resultSet.getTime("ora_fine").toLocalTime());
-                intervento.setAbstract(resultSet.getString("abstract"));
+                intervento.setId(rs.getInt("id_intervento"));
+                intervento.setOraInizio(rs.getTime("ora_inizio").toLocalTime());
+                intervento.setOraFine(rs.getTime("ora_fine").toLocalTime());
+                intervento.setAbstract(rs.getString("abstract"));
                 intervento.setSessione(sessione);
+                intervento.setSpeaker(new Partecipante(rs.getInt("id_partecipante"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("istituzione")));
 
                 interventi.add(intervento);
             }
             
-            resultSet.close();
+            rs.close();
             statement.close();
             connection.close();
 
@@ -47,4 +52,49 @@ public class InterventoPGDAO implements InterventoDAO {
         return interventi;
 
     }
+    
+    @Override
+    public void insert(Intervento intervento) throws Exception {
+    	Connection connection = DBConnection.getDBConnection().getConnection();
+    	try {
+    		String sql = "INSERT INTO intervento (ora_inizio, ora_fine, abstract, id_sessione, id_partecipante) VALUES (?, ?, ?, ?, ?);";
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			statement.setTime(1, Time.valueOf(intervento.getOraInizio()));
+			statement.setTime(2, Time.valueOf(intervento.getOraFine()));
+			statement.setString(3, intervento.getAbstract());
+			statement.setInt(4, intervento.getSessione().getId());
+			statement.setInt(5, intervento.getSpeaker().getId());
+			
+			statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			
+			if(rs.next()) {
+				intervento.setId(rs.getInt(1));
+			}
+			
+			rs.close();
+			statement.close();
+			connection.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+    	
+    }
+    
+	public void delete(int id) {
+		Connection connection = DBConnection.getDBConnection().getConnection();
+		try {
+			Statement statement = connection.createStatement();
+			String sql = "DELETE FROM intervento WHERE id_intervento = " + id + ";";
+			statement.executeUpdate(sql);
+			
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
