@@ -20,7 +20,6 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
         try{
             String sql = "SELECT * FROM conferenza AS c NATURAL JOIN luogo AS l WHERE id_conferenza = ? ORDER BY id_conferenza";
             PreparedStatement statement = connection.prepareStatement(sql);
-
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -262,7 +261,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             String sql = "INSERT INTO conferenza (data_inizio, data_fine, descrizione, id_luogo) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setDate(1, Date.valueOf(conferenza.getData_inizio().toString()));
+            statement.setDate(1, Date.valueOf(conferenza.getData_inizio()));
             statement.setDate(2, Date.valueOf(conferenza.getData_fine()));
             statement.setString(3, conferenza.getDescrizione());
             statement.setInt(4, conferenza.getLuogo().getId_luogo());

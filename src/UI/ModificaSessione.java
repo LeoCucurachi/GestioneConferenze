@@ -24,6 +24,7 @@ import com.github.lgooddatepicker.zinternaltools.TimeChangeEvent;
 import DTO.Conferenza;
 import DTO.Locazione;
 import DTO.Partecipante;
+import DTO.Sessione;
 import prova.Controller;
 import prova.SessioniTableModel;
 
@@ -46,9 +47,9 @@ public class ModificaSessione extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaSessione(Controller c, Conferenza conf, int id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione) {
+	public ModificaSessione(Controller c, Sessione sessione) {
 		controller = c;
-		conferenza = conf;
+		conferenza = sessione.getConferenza();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 345);
@@ -71,7 +72,7 @@ public class ModificaSessione extends JFrame {
 		datePickerSettings.setVisibleNextYearButton(false);
 		datePickerSettings.setVisiblePreviousYearButton(false);
 		dataSessionePicker.setBounds(6, 25, 212, 29);
-		dataSessionePicker.setDate(data_sessione);
+		dataSessionePicker.setDate(sessione.getData_sessione());
 //		dataSessionePicker.addDateChangeListener(new DateChangeListener() {
 //			
 //			@Override
@@ -101,7 +102,7 @@ public class ModificaSessione extends JFrame {
 		TimePickerSettings oraInizioPickerSettings = new TimePickerSettings();
 		TimePicker oraInizioPicker = new TimePicker(oraInizioPickerSettings);
 		oraInizioPickerSettings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, null, null);
-		oraInizioPicker.setTime(ora_inizio);
+		oraInizioPicker.setTime(sessione.getOra_inizio());
 		oraInizioPicker.setBounds(6, 84, 127, 29);
 		contentPane.add(oraInizioPicker);
 		
@@ -113,7 +114,7 @@ public class ModificaSessione extends JFrame {
 		TimePicker oraFinePicker = new TimePicker(oraFinePickerSettings);
 		oraFinePickerSettings.generatePotentialMenuTimes(TimeIncrement.FifteenMinutes, null, null);
 		oraFinePicker.setBounds(6, 152, 127, 29);
-		oraFinePicker.setTime(ora_fine);
+		oraFinePicker.setTime(sessione.getOra_fine());
 		contentPane.add(oraFinePicker);
 		
 		oraInizioPicker.addTimeChangeListener(new TimeChangeListener() {
@@ -136,7 +137,7 @@ public class ModificaSessione extends JFrame {
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.updateSessione(id, dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), new Partecipante(1));
+				controller.updateSessione(sessione.getId(), dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), new Partecipante(1));
 			}
 		});
 		confermaButton.setBounds(427, 282, 117, 29);
@@ -152,7 +153,7 @@ public class ModificaSessione extends JFrame {
 		contentPane.add(indietroButton);
 				
 		RefreshComboBox();
-		locazioneComboBox.setSelectedItem(locazione);
+		locazioneComboBox.setSelectedItem(sessione.getLocazione());
 		
 		setVisible(true);
 	}

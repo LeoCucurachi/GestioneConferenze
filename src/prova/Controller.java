@@ -164,7 +164,6 @@ public class Controller {
 
 	public void VisualizzaConferenzeToModificaConferenza(Conferenza c) {
 		visualizzaConferenze.setVisible(false);
-		System.out.println(c);
 		modificaConferenza = new ModificaConferenza(this, c);
 	}
 	
@@ -337,14 +336,14 @@ public class Controller {
 	
 	public void VisualizzaSessioniToModificaSessione(JTable table, int row, Conferenza conferenza) {
 		visualizzaSessioni.setVisible(false);
-		int id = (int)table.getModel().getValueAt(row, 0);
-		LocalDate date = (LocalDate)table.getModel().getValueAt(row, 1);
-		LocalTime ora_inizio = (LocalTime)table.getModel().getValueAt(row, 2);
-		LocalTime ora_fine = (LocalTime)table.getModel().getValueAt(row, 3);
-		Locazione locazione = (Locazione)table.getModel().getValueAt(row, 4);
+//		int id = (int)table.getModel().getValueAt(row, 0);
+//		LocalDate date = (LocalDate)table.getModel().getValueAt(row, 1);
+//		LocalTime ora_inizio = (LocalTime)table.getModel().getValueAt(row, 2);
+//		LocalTime ora_fine = (LocalTime)table.getModel().getValueAt(row, 3);
+//		Locazione locazione = (Locazione)table.getModel().getValueAt(row, 4);
+		Sessione s = (Sessione)table.getModel().getValueAt(row, 5);
 		
-		
-		modificaSessione = new ModificaSessione(this, conferenza, id, date, ora_inizio, ora_fine, locazione);
+		modificaSessione = new ModificaSessione(this, s);
 	}
 	
 	
@@ -513,10 +512,6 @@ public class Controller {
 		} catch (Exception e) {
             JOptionPane.showMessageDialog(aggiungiSessione, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
 		}
-	}
-	
-	public void VisualizzaProgrammaAnnullaInserimento(JPanel addPanel) {
-		addPanel.setVisible(false);
 	}
 	
 	public void VisualizzaProgrammaIndietro() {
