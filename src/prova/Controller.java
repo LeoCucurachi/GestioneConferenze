@@ -334,7 +334,7 @@ public class Controller {
 		visualizzaProgramma = new VisualizzaProgramma(this, sessione);
 	}
 	
-	public void VisualizzaSessioniToModificaSessione(JTable table, int row, Conferenza conferenza) {
+	public void VisualizzaSessioniToModificaSessione(JTable table, int row) {
 		visualizzaSessioni.setVisible(false);
 //		int id = (int)table.getModel().getValueAt(row, 0);
 //		LocalDate date = (LocalDate)table.getModel().getValueAt(row, 1);
