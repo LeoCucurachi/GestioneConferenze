@@ -4,6 +4,7 @@ import DAO.ConferenzaDAO;
 import DAO.EventoDAO;
 import DAO.IntervalloDAO;
 import DAO.InterventoDAO;
+import DAO.IstituzioneDAO;
 import DAO.LocazioneDAO;
 import DAO.LuogoDAO;
 import DAO.PartecipanteDAO;
@@ -13,6 +14,7 @@ import DTO.ElementoProgramma;
 import DTO.Evento;
 import DTO.Intervallo;
 import DTO.Intervento;
+import DTO.Istituzione;
 import DTO.Locazione;
 import DTO.Luogo;
 import DTO.Partecipante;
@@ -22,6 +24,7 @@ import PGDAO.ConferenzaPGDAO;
 import PGDAO.EventoPGDAO;
 import PGDAO.IntervalloPGDAO;
 import PGDAO.InterventoPGDAO;
+import PGDAO.IstituzionePGDAO;
 import PGDAO.LocazionePGDAO;
 import PGDAO.LuogoPGDAO;
 import PGDAO.PartecipantePGDAO;
@@ -34,6 +37,7 @@ import UI.MainFrame;
 import UI.ModificaConferenza;
 import UI.ModificaSessione;
 import UI.VisualizzaConferenze;
+import UI.VisualizzaIstituzioni;
 import UI.VisualizzaProgramma;
 import UI.VisualizzaSessioni;
 
@@ -44,8 +48,13 @@ import javax.swing.table.TableColumn;
 
 import org.w3c.dom.html.HTMLTableCaptionElement;
 
+import com.github.lgooddatepicker.demo.zExtra_DataBindingDemo;
+
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -59,6 +68,7 @@ public class Controller {
     InterventoDAO interventoDAO;
     EventoDAO eventoDAO;
     PartecipanteDAO partecipanteDAO;
+    IstituzioneDAO istituzioneDAO;
     
     AggiungiConferenza aggiungiConferenza;
     AggiungiLuogo  aggiungiLuogo;
@@ -70,6 +80,7 @@ public class Controller {
     ModificaSessione modificaSessione;
     VisualizzaProgramma visualizzaProgramma;
     AggiungiElementoProgramma aggiungiElementoProgramma;
+    VisualizzaIstituzioni visualizzaIstituzioni;
 //    VisualizzaIstituzioni visualizzaIstituzioni;
 
     
@@ -91,8 +102,10 @@ public class Controller {
         intervalloDAO = new IntervalloPGDAO();
         eventoDAO = new EventoPGDAO();
         partecipanteDAO = new PartecipantePGDAO();
+        istituzioneDAO = new IstituzionePGDAO();
         
-        visualizzaConferenze = new VisualizzaConferenze(this);
+        //visualizzaConferenze = new VisualizzaConferenze(this);
+        visualizzaIstituzioni = new VisualizzaIstituzioni(this);
         
     }
 
@@ -616,6 +629,45 @@ public class Controller {
 		else {
 			return;
 		}
+	}
+	
+	// VisualizzaIstituzioni
+	
+	public void SetIstituzioniTableModel(JTable table) {
+		table.setModel(new IstituzioniTableModel());
+		table.setAutoCreateRowSorter(true);
+		
+//        DefaultTableColumnModel defaultTableColumnModel = (DefaultTableColumnModel)table.getColumnModel();
+
+//        defaultTableColumnModel.getColumn(1).setPreferredWidth(200);
+//        defaultTableColumnModel.getColumn(1).setMaxWidth(200);
+//        defaultTableColumnModel.getColumn(1).setMinWidth(200);
+        
+	}
+	
+	public void SetIstituzioni(JTable table, Month month, Year year) {
+    	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+    	tableModel.setRowCount(0);
+    	DecimalFormat df = new DecimalFormat();
+    	df.setMaximumFractionDigits(2);
+    	int[] conta = new int[2000];
+    	ArrayList<Istituzione> istituzioni;
+    	if(month == null) {
+    		istituzioni = istituzioneDAO.getCountOfYear(year, conta);
+    	}
+    	else {
+    		istituzioni = istituzioneDAO.getCountOfYearAndMonth(month, year, conta);
+    	}
+    	int i = 0;
+    	int totale = 0;
+    	for(i = 0; conta[i] != 0; i++) {
+    		totale += conta[i];
+    	}
+    	i = 0;
+    	for (Istituzione istituzione:istituzioni) {
+    		System.out.println((conta[i] * 100) / (float)totale);
+    		tableModel.addRow(new Object[]{istituzione.getNome(), df.format((conta[i++] * 100) / (float)totale) + "%"});
+    	}
 	}
 	
 }

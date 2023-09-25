@@ -182,7 +182,7 @@ public class VisualizzaSessioni extends JFrame {
 		menuItemUpdate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.VisualizzaSessioniToModificaSessione(sessioniTable, sessioniTable.getSelectedRow(), conferenza);
+				controller.VisualizzaSessioniToModificaSessione(sessioniTable, sessioniTable.getSelectedRow());
 			}
 		});
 		
