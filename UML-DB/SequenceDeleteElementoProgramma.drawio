@@ -1,32 +1,32 @@
-<mxfile host="app.diagrams.net" modified="2023-09-25T10:23:21.307Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="2FgmImEtF66FVXkXqPLe" version="21.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-09-25T10:25:22.249Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15" etag="0YnBTOXk3JvL9miAlYbg" version="21.8.2" type="github">
   <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
     <mxGraphModel dx="986" dy="647" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="bSgejq6akdJiE-Cmj8o2-1" value="controller:&lt;br&gt;Controller" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="105" y="40" width="100" height="630" as="geometry" />
+          <mxGeometry x="105" y="20" width="100" height="650" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="bSgejq6akdJiE-Cmj8o2-1">
-          <mxGeometry x="45" y="50" width="10" height="540" as="geometry" />
+          <mxGeometry x="45" y="50" width="10" height="580" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-5" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="20" y="360" width="1020" height="8" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-11" value="intervalloDAO:&lt;br&gt;IntervalloPGDAO" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="520" y="40" width="110" height="630" as="geometry" />
+          <mxGeometry x="520" y="20" width="110" height="650" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-12" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="bSgejq6akdJiE-Cmj8o2-11">
-          <mxGeometry x="50" y="250" width="10" height="35" as="geometry" />
+          <mxGeometry x="50" y="270" width="10" height="35" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-14" value="JOptionPane" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="330" y="40" width="110" height="630" as="geometry" />
+          <mxGeometry x="330" y="20" width="110" height="650" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="bSgejq6akdJiE-Cmj8o2-14">
-          <mxGeometry x="50" y="70" width="10" height="50" as="geometry" />
+          <mxGeometry x="50" y="90" width="10" height="50" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-17" value="showMessageDialog(aggiungiConferenza, msg, JOptionPane.YES_NO_OPTION)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1" target="bSgejq6akdJiE-Cmj8o2-14" source="bSgejq6akdJiE-Cmj8o2-2">
-          <mxGeometry x="0.0022" y="10" width="80" relative="1" as="geometry">
+          <mxGeometry x="-0.02" width="80" relative="1" as="geometry">
             <mxPoint x="155" y="340" as="sourcePoint" />
             <mxPoint x="235" y="340" as="targetPoint" />
             <Array as="points">
@@ -68,10 +68,10 @@
           <mxGeometry x="10" y="368" width="140" height="40" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-30" value="intereventoDAO: InterventoPGDAO" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="740" y="35" width="110" height="635" as="geometry" />
+          <mxGeometry x="740" y="20" width="110" height="650" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-31" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="bSgejq6akdJiE-Cmj8o2-30">
-          <mxGeometry x="50" y="398" width="10" height="35" as="geometry" />
+          <mxGeometry x="50" y="413" width="10" height="35" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-32" value="delete(elementoProgramma.getId())" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
           <mxGeometry x="-0.0028" width="80" relative="1" as="geometry">
@@ -90,10 +90,10 @@
           <mxGeometry x="20" y="510" width="140" height="40" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-35" value="eventoDAO: EventoPGDAO" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="940" y="35" width="110" height="635" as="geometry" />
+          <mxGeometry x="940" y="20" width="110" height="650" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-36" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="bSgejq6akdJiE-Cmj8o2-35">
-          <mxGeometry x="50" y="530" width="10" height="35" as="geometry" />
+          <mxGeometry x="50" y="540" width="10" height="35" as="geometry" />
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-37" value="delete(elementoProgramma.getId())" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
           <mxGeometry x="-0.0028" width="80" relative="1" as="geometry">
@@ -116,6 +116,13 @@
         </mxCell>
         <mxCell id="bSgejq6akdJiE-Cmj8o2-41" value="opt" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;" vertex="1" parent="1">
           <mxGeometry x="20" y="550" width="1020" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bSgejq6akdJiE-Cmj8o2-42" value="deleteElementoProgramma(table : JTable, row : int)" style="html=1;verticalAlign=bottom;startArrow=circle;startFill=1;endArrow=open;startSize=6;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry x="0.7143" y="10" width="80" relative="1" as="geometry">
+            <mxPoint x="10" y="100" as="sourcePoint" />
+            <mxPoint x="150" y="100" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
