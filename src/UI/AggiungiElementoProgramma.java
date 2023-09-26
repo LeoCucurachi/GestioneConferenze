@@ -58,7 +58,7 @@ public class AggiungiElementoProgramma extends JFrame {
 		controller = c;
 		sessione = s;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 669, 429);
+		setBounds(100, 100, 669, 475);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -117,30 +117,51 @@ public class AggiungiElementoProgramma extends JFrame {
 		
 		
 		cercaField.setColumns(10);
+		
+		JLabel cercaSpeakerLabel = new JLabel("Cerca Speaker");
+		
+		JLabel abstractLabel = new JLabel("Abstract");
+		
+		JLabel speakerLabel = new JLabel("Speaker");
 		GroupLayout gl_interventoPane = new GroupLayout(interventoPane);
 		gl_interventoPane.setHorizontalGroup(
-			gl_interventoPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_interventoPane.createSequentialGroup()
+			gl_interventoPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_interventoPane.createSequentialGroup()
 					.addGap(6)
-					.addGroup(gl_interventoPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_interventoPane.createSequentialGroup()
-							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(cercaField, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-							.addGap(12))
-						.addGroup(gl_interventoPane.createSequentialGroup()
-							.addComponent(abstractTextArea, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-							.addGap(48))))
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_interventoPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(cercaField)
+						.addComponent(cercaSpeakerLabel))
+					.addGap(12))
+				.addGroup(gl_interventoPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(abstractLabel)
+					.addContainerGap(574, Short.MAX_VALUE))
+				.addGroup(gl_interventoPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(abstractTextArea, GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+					.addGap(48))
+				.addGroup(gl_interventoPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(speakerLabel)
+					.addContainerGap(566, Short.MAX_VALUE))
 		);
 		gl_interventoPane.setVerticalGroup(
 			gl_interventoPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_interventoPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(abstractTextArea, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-					.addGap(18)
+					.addComponent(abstractLabel)
+					.addGap(2)
+					.addComponent(abstractTextArea, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(speakerLabel)
+					.addGap(5)
 					.addGroup(gl_interventoPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-						.addComponent(cercaField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+						.addGroup(gl_interventoPane.createSequentialGroup()
+							.addComponent(cercaSpeakerLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(cercaField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		
@@ -155,18 +176,26 @@ public class AggiungiElementoProgramma extends JFrame {
 		
 		JComboBox<String> intervalloTipoComboBox = new JComboBox<String>();
 		controller.SetIntervalloTipiComboBox(intervalloTipoComboBox);
+		
+		JLabel lblNewLabel = new JLabel("Tipo Intervento");
 		GroupLayout gl_intervalloPane = new GroupLayout(intervalloPane);
 		gl_intervalloPane.setHorizontalGroup(
 			gl_intervalloPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_intervalloPane.createSequentialGroup()
-					.addGap(6)
-					.addComponent(intervalloTipoComboBox, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap()
+					.addGroup(gl_intervalloPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(intervalloTipoComboBox, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel))
+					.addContainerGap(388, Short.MAX_VALUE))
 		);
 		gl_intervalloPane.setVerticalGroup(
 			gl_intervalloPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_intervalloPane.createSequentialGroup()
-					.addGap(6)
-					.addComponent(intervalloTipoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(12)
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(intervalloTipoComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(116, Short.MAX_VALUE))
 		);
 		intervalloPane.setLayout(gl_intervalloPane);
 		intervalloPane.setVisible(false);
@@ -175,7 +204,7 @@ public class AggiungiElementoProgramma extends JFrame {
 		eventoPane.setLayout(null);
 		
 		JComboBox<String> eventoTipoComboBox = new JComboBox<String>();
-		eventoTipoComboBox.setBounds(6, 6, 194, 27);
+		eventoTipoComboBox.setBounds(6, 38, 211, 27);
 		controller.SetEventoTipiComboBox(eventoTipoComboBox);
 		eventoPane.add(eventoTipoComboBox);
 		
@@ -189,17 +218,30 @@ public class AggiungiElementoProgramma extends JFrame {
 		controller.SetProgrammaTableModel(programmaTable);
 		controller.SetProgrammaOfSessione(programmaTable, sessione);
 		scrollPane.setViewportView(programmaTable);
+		
+		JLabel oraInizioLabel = new JLabel("Ora Inizio");
+		
+		JLabel oraFineLabel = new JLabel("Ora Fine");
+		
+		JLabel programmaLabel = new JLabel("Orari Occupati");
 		GroupLayout gl_addPane = new GroupLayout(addPane);
 		gl_addPane.setHorizontalGroup(
 			gl_addPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_addPane.createSequentialGroup()
-					.addGap(6)
+					.addContainerGap()
 					.addGroup(gl_addPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(oraFinePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(oraInizioPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(oraFinePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(oraInizioLabel)
+						.addComponent(oraFineLabel))
 					.addGap(26)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-					.addGap(12))
+					.addGroup(gl_addPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_addPane.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+							.addGap(12))
+						.addGroup(gl_addPane.createSequentialGroup()
+							.addComponent(programmaLabel)
+							.addContainerGap())))
 				.addGroup(gl_addPane.createSequentialGroup()
 					.addComponent(specificPane, GroupLayout.PREFERRED_SIZE, 633, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(20, Short.MAX_VALUE))
@@ -207,21 +249,35 @@ public class AggiungiElementoProgramma extends JFrame {
 		gl_addPane.setVerticalGroup(
 			gl_addPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_addPane.createSequentialGroup()
-					.addGap(20)
+					.addGap(22)
 					.addGroup(gl_addPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_addPane.createSequentialGroup()
-							.addComponent(oraInizioPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(11)
-							.addComponent(oraFinePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-					.addGap(12)
-					.addComponent(specificPane, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(programmaLabel)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_addPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_addPane.createSequentialGroup()
+									.addGap(11)
+									.addComponent(oraInizioPicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(oraFineLabel)
+									.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+									.addComponent(oraFinePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(14))
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(specificPane, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
+						.addComponent(oraInizioLabel))
 					.addContainerGap())
 		);
 		specificPane.setLayout(new CardLayout(0, 0));
 		specificPane.add(interventoPane, "1");
 		specificPane.add(intervalloPane, "2");
 		specificPane.add(eventoPane, "3");
+		
+		JLabel tipoEventoLabel = new JLabel("Tipo Evento");
+		tipoEventoLabel.setBounds(16, 10, 97, 16);
+		eventoPane.add(tipoEventoLabel);
 		addPane.setLayout(gl_addPane);
 		
 		JButton indietroButton = new JButton("Indietro");
@@ -247,19 +303,19 @@ public class AggiungiElementoProgramma extends JFrame {
 		confermaButton.setEnabled(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(indietroButton, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 						.addComponent(interventoRadioButton, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(92)
 							.addComponent(eventoRadioButton)
 							.addGap(113)
 							.addComponent(intervalloRadioButton)
 							.addContainerGap(172, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(confermaButton, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())))
@@ -276,8 +332,8 @@ public class AggiungiElementoProgramma extends JFrame {
 							.addComponent(eventoRadioButton))
 						.addComponent(intervalloRadioButton))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(addPane, GroupLayout.PREFERRED_SIZE, 256, Short.MAX_VALUE)
-					.addGap(12)
+					.addComponent(addPane, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(indietroButton)
 						.addComponent(confermaButton))

@@ -650,7 +650,7 @@ public class Controller {
     	tableModel.setRowCount(0);
     	DecimalFormat df = new DecimalFormat();
     	df.setMaximumFractionDigits(2);
-    	int[] conta = new int[2000];
+    	ArrayList<Integer> conta = new ArrayList<Integer>();
     	ArrayList<Istituzione> istituzioni;
     	if(month == null) {
     		istituzioni = istituzioneDAO.getCountOfYear(year, conta);
@@ -658,15 +658,13 @@ public class Controller {
     	else {
     		istituzioni = istituzioneDAO.getCountOfYearAndMonth(month, year, conta);
     	}
-    	int i = 0;
     	int totale = 0;
-    	for(i = 0; conta[i] != 0; i++) {
-    		totale += conta[i];
-    	}
-    	i = 0;
+    	for (Integer n : conta) {
+			totale += n;
+		}
+    	int i = 0;
     	for (Istituzione istituzione:istituzioni) {
-    		System.out.println((conta[i] * 100) / (float)totale);
-    		tableModel.addRow(new Object[]{istituzione.getNome(), df.format((conta[i++] * 100) / (float)totale) + "%"});
+    		tableModel.addRow(new Object[]{istituzione.getNome(), df.format((conta.get(i++) * 100) / (float)totale) + "%"});
     	}
 	}
 	
