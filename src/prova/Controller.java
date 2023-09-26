@@ -104,9 +104,7 @@ public class Controller {
         partecipanteDAO = new PartecipantePGDAO();
         istituzioneDAO = new IstituzionePGDAO();
         
-        //visualizzaConferenze = new VisualizzaConferenze(this);
-        visualizzaIstituzioni = new VisualizzaIstituzioni(this);
-        
+        visualizzaConferenze = new VisualizzaConferenze(this);        
     }
 
     
@@ -188,6 +186,11 @@ public class Controller {
     public void VisualizzaConferenzeToAggiungiConferenza() {
     	visualizzaConferenze.setVisible(false);
     	aggiungiConferenza = new AggiungiConferenza(this);
+    }
+    
+    public void VisualizzaConferenzeToVisualizzaIstituzioni() {
+    	visualizzaConferenze.setVisible(false);
+    	visualizzaIstituzioni = new VisualizzaIstituzioni(this);
     }
     
     // AggiungiConferenza
@@ -668,4 +671,14 @@ public class Controller {
     	}
 	}
 	
+	public void SetAnniComboBox(JComboBox<Year> comboBox) {
+		DefaultComboBoxModel<Year> defaultComboBoxModel = (DefaultComboBoxModel<Year>)comboBox.getModel();
+		defaultComboBoxModel.addAll(conferenzaDAO.getAnni());
+		comboBox.setModel(defaultComboBoxModel);
+	}
+	
+	public void VisualizzaIstituzioniIndietro() {
+		visualizzaIstituzioni.dispose();
+		visualizzaConferenze.setVisible(true);
+	}
 }

@@ -10,6 +10,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Year;
 import java.util.ArrayList;
 
 public class ConferenzaPGDAO implements ConferenzaDAO {
@@ -323,5 +324,28 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
             e.printStackTrace();
             throw e;
         }
+    }
+    
+    @Override
+    public ArrayList<Year> getAnni() {
+        Connection connection = DBConnection.getDBConnection().getConnection();
+        ArrayList<Year> anni = new ArrayList<Year>();
+        try{
+            String sql = "((SELECT DISTINCT EXTRACT(year FROM data_inizio) AS anno FROM conferenza) UNION (SELECT DISTINCT EXTRACT(year FROM data_fine) AS anno FROM conferenza)) ORDER BY anno";
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()){
+            	anni.add(Year.of(rs.getInt("anno")));
+            }
+            
+            rs.close();
+            statement.close();
+            connection.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return anni;
     }
 }
