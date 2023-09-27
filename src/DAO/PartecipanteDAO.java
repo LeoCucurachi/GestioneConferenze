@@ -8,6 +8,4 @@ import DTO.Partecipante;
 
 public interface PartecipanteDAO {
 	public ArrayList<Partecipante> getAll();
-	public ArrayList<Partecipante>  getSpeakerOfYear(Year year);
-	public ArrayList<Partecipante>  getSpeakerOfYearAndMonth(Month month, Year year);
 }

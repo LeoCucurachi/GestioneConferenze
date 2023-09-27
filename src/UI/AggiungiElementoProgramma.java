@@ -61,6 +61,8 @@ public class AggiungiElementoProgramma extends JFrame {
 		setBounds(100, 100, 669, 475);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("Aggiungi Elemento Programma");
+
 		
 		setContentPane(contentPane);
 		

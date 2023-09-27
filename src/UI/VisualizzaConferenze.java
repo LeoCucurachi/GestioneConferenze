@@ -85,6 +85,7 @@ public class VisualizzaConferenze extends JFrame {
 		controller = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1053, 453);
+		setTitle("Visualizza Conferenze");
 
 		
 		contentPane = new JPanel();

@@ -37,6 +37,8 @@ public class AggiungiLuogo extends JFrame {
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("Aggiungi Luogo");
+
 
 		setContentPane(contentPane);
 		

@@ -44,6 +44,8 @@ public class AggiungiSessione extends JFrame {
 	public AggiungiSessione(Controller c, Conferenza conf) {
 		controller = c;
 		conferenza = conf;
+		setTitle("Aggiungi Sessione");
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 345);

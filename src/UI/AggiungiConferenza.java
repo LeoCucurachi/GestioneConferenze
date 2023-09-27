@@ -31,6 +31,8 @@ public class AggiungiConferenza extends JFrame {
 		controller = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 616, 427);
+		setTitle("Aggiuni Conferenza");
+
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

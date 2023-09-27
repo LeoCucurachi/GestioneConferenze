@@ -55,6 +55,8 @@ public class VisualizzaProgramma extends JFrame {
 		setSize(800, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("Visualizza Programma");
+
 
 		setContentPane(contentPane);
 		

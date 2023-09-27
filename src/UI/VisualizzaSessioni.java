@@ -55,6 +55,8 @@ public class VisualizzaSessioni extends JFrame {
 		conferenza = conf;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1306, 462);
+		setTitle("Visualizza Sessioni");
+
 		
 		
 		contentPane = new JPanel();

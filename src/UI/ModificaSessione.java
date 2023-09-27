@@ -50,6 +50,8 @@ public class ModificaSessione extends JFrame {
 	public ModificaSessione(Controller c, Sessione sessione) {
 		controller = c;
 		conferenza = sessione.getConferenza();
+		setTitle("Modifica Sessione");
+
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 345);
