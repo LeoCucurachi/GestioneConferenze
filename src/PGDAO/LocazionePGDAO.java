@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import DAO.LocazioneDAO;
 import DTO.Locazione;
 import DTO.Luogo;
-import prova.DBConnection;
+import principale.DBConnection;
 
 public class LocazionePGDAO implements LocazioneDAO{
 	@Override

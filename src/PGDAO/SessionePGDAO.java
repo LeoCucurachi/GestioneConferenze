@@ -6,7 +6,7 @@ import DTO.Locazione;
 import DTO.Partecipante;
 import DTO.Sessione;
 import Exceptions.DataFineDopoDataInizioException;
-import prova.DBConnection;
+import principale.DBConnection;
 
 import java.security.DrbgParameters.NextBytes;
 import java.sql.Connection;

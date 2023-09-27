@@ -1,4 +1,4 @@
-package prova;
+package tableModels;
 
 import java.time.LocalDate;
 
@@ -6,18 +6,18 @@ import javax.swing.table.DefaultTableModel;
 
 import DTO.Conferenza;
 import DTO.Luogo;
-import DTO.Partecipante;
 
-public class PartecipanteTableModel extends DefaultTableModel{
-	public PartecipanteTableModel() {
+public class ConferenzeTableModel extends DefaultTableModel{
+	
+	public ConferenzeTableModel() {
 		super();
 		
         addColumn("ID");
-        addColumn("Nome");
-        addColumn("Cognome");
-        addColumn("Email");
-        addColumn("Istituzione");
-        addColumn("Partecipante");
+        addColumn("Descrizione");
+        addColumn("Data Inizio");
+        addColumn("Data Fine");
+        addColumn("Luogo");
+        addColumn("Conferenza");
 	}
 	
         @Override
@@ -28,13 +28,13 @@ public class PartecipanteTableModel extends DefaultTableModel{
                 case 1:
                     return String.class;
                 case 2:
-                    return String.class;
+                    return LocalDate.class;
                 case 3:
-                	return String.class;
+                	return LocalDate.class;
                 case 4:
-                	return String.class;
+                	return Luogo.class;
                 case 5:
-                	return Partecipante.class;
+                	return Conferenza.class;
                 default:
                     return String.class;
             }

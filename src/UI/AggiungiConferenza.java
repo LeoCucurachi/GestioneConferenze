@@ -1,6 +1,5 @@
 package UI;
 
-import prova.Controller;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,6 +9,7 @@ import javax.swing.JLabel;
 import com.github.lgooddatepicker.components.DatePicker;
 
 import DTO.Luogo;
+import principale.Controller;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;

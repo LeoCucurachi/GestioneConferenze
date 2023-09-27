@@ -4,7 +4,7 @@ import DAO.InterventoDAO;
 import DTO.Intervento;
 import DTO.Partecipante;
 import DTO.Sessione;
-import prova.DBConnection;
+import principale.DBConnection;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.security.interfaces.RSAKey;

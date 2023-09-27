@@ -1,11 +1,13 @@
 package UI;
 
-import prova.Controller;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import principale.Controller;
+
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;

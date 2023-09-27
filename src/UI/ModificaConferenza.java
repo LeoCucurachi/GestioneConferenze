@@ -1,6 +1,5 @@
 package UI;
 
-import prova.Controller;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,6 +11,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 import DTO.Conferenza;
 import DTO.Luogo;
 import Exceptions.DataFineDopoDataInizioException;
+import principale.Controller;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;

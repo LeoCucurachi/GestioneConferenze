@@ -4,7 +4,7 @@ import DAO.ConferenzaDAO;
 import DTO.Conferenza;
 import DTO.Luogo;
 import DTO.Sessione;
-import prova.DBConnection;
+import principale.DBConnection;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.sql.*;

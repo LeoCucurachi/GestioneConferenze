@@ -25,8 +25,8 @@ import DTO.Conferenza;
 import DTO.Locazione;
 import DTO.Partecipante;
 import DTO.Sessione;
-import prova.Controller;
-import prova.SessioniTableModel;
+import principale.Controller;
+import tableModels.SessioniTableModel;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
 import javax.swing.JComboBox;

@@ -2,7 +2,7 @@ package PGDAO;
 
 import DAO.PartecipanteDAO;
 import DTO.Partecipante;
-import prova.DBConnection;
+import principale.DBConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

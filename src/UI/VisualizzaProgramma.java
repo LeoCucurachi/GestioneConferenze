@@ -9,7 +9,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import DTO.Sessione;
-import prova.Controller;
+import principale.Controller;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;

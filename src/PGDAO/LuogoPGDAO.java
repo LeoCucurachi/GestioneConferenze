@@ -2,7 +2,7 @@ package PGDAO;
 
 import DAO.LuogoDAO;
 import DTO.Luogo;
-import prova.DBConnection;
+import principale.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

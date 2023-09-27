@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import DAO.EventoDAO;
 import DTO.Evento;
 import DTO.Sessione;
-import prova.DBConnection;
+import principale.DBConnection;
 
 public class EventoPGDAO implements EventoDAO {
 	   public ArrayList<Evento> getEventi(Sessione sessione){

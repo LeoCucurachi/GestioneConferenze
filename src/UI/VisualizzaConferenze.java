@@ -8,11 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
-
-import prova.ConferenzeTableModel;
-import prova.Controller;
-import prova.PartecipanteTableModel;
-
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -57,6 +52,9 @@ import com.github.lgooddatepicker.optionalusertools.DateChangeListener;
 import com.github.lgooddatepicker.zinternaltools.DateChangeEvent;
 
 import DTO.Conferenza;
+import principale.Controller;
+import tableModels.ConferenzeTableModel;
+import tableModels.PartecipanteTableModel;
 
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;

@@ -10,7 +10,8 @@ import javax.swing.table.TableColumn;
 
 import DTO.Conferenza;
 import DTO.Sessione;
-import prova.Controller;
+import principale.Controller;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;

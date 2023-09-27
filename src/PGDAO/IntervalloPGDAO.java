@@ -13,7 +13,7 @@ import com.github.lgooddatepicker.components.TimePickerSettings;
 import DAO.IntervalloDAO;
 import DTO.Intervallo;
 import DTO.Sessione;
-import prova.DBConnection;
+import principale.DBConnection;
 
 public class IntervalloPGDAO implements IntervalloDAO{
 	   public ArrayList<Intervallo> getIntervalli(Sessione sessione){

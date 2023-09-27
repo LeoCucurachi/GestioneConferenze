@@ -1,4 +1,4 @@
-package prova;
+package principale;
 
 import DAO.ConferenzaDAO;
 import DAO.EventoDAO;
@@ -40,6 +40,12 @@ import UI.VisualizzaConferenze;
 import UI.VisualizzaIstituzioni;
 import UI.VisualizzaProgramma;
 import UI.VisualizzaSessioni;
+import tableModels.ConferenzeTableModel;
+import tableModels.DateTableRenderer;
+import tableModels.IstituzioniTableModel;
+import tableModels.PartecipanteTableModel;
+import tableModels.ProgrammaTableModel;
+import tableModels.SessioniTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableColumnModel;

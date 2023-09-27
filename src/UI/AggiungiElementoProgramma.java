@@ -15,8 +15,8 @@ import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
 
 import DTO.Partecipante;
 import DTO.Sessione;
-import prova.Controller;
-import prova.PartecipanteTableModel;
+import principale.Controller;
+import tableModels.PartecipanteTableModel;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;

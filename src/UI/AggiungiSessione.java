@@ -22,7 +22,7 @@ import com.github.lgooddatepicker.zinternaltools.TimeChangeEvent;
 import DTO.Conferenza;
 import DTO.Locazione;
 import DTO.Partecipante;
-import prova.Controller;
+import principale.Controller;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
 import javax.swing.JComboBox;
