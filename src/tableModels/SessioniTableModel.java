@@ -21,6 +21,7 @@ public class SessioniTableModel extends DefaultTableModel{
         addColumn("Locazione");
         addColumn("Sessione");
         addColumn("Coordinatore");
+        addColumn("Keynote Speaker");
         
 	}
 	
@@ -40,6 +41,8 @@ public class SessioniTableModel extends DefaultTableModel{
             case 5:
             	return Sessione.class;
             case 6:
+            	return Partecipante.class;
+            case 7:
             	return Partecipante.class;
             default:
                 return String.class;

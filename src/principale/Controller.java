@@ -322,14 +322,15 @@ public class Controller {
 
 	}
 	
-	public void SetTableToAllSessions(JTable table, Conferenza conferenza) {
-    	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
-    	tableModel.setRowCount(0);
-    	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
-    	for (Sessione sessione:sessioni) {
-            tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore()});
-        }
-	}
+//	public void SetTableToAllSessions(JTable table, Conferenza conferenza) {
+//    	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+//    	tableModel.setRowCount(0);
+//    	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
+//    	for (Sessione sessione:sessioni) {
+//    		System.out.println(sessione.getId());
+//            tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore(), sessione.getKeynote()});
+//        }
+//	}
 	
 	public void SetTableToSessionOfDate(JTable table, Conferenza conferenza, LocalDate date) {
     	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
@@ -337,7 +338,7 @@ public class Controller {
     	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
     	for (Sessione sessione:sessioni) {
     		if(date == null || (date != null && sessione.getData_sessione().isEqual(date)))
-    			tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore()});
+    			tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore(), sessione.getKeynote()});
         }
 	}
 	
@@ -382,10 +383,17 @@ public class Controller {
 		visualizzaSessioni.setVisible(true);
 	}
 	
-	public void insertSessione(LocalDate dataSessione, LocalTime oraInizio, LocalTime oraFine, Conferenza conferenza, Locazione locazione, Partecipante coordinatore) {
+	public void insertSessione(LocalDate dataSessione, LocalTime oraInizio, LocalTime oraFine, Conferenza conferenza, Locazione locazione, int coordinatoreRow, JTable coordinatoreTable, int keynoteRow, JTable keynoteTable) {
 		try {
-			if(dataSessione != null && oraInizio != null && oraFine != null && conferenza != null && locazione != null && coordinatore != null) {
-				Sessione sessione = new Sessione(dataSessione, oraInizio, oraFine, locazione, conferenza, coordinatore);
+			if(dataSessione != null && oraInizio != null && oraFine != null && conferenza != null && locazione != null && coordinatoreRow >= 0) {
+				Sessione sessione;
+				if(keynoteRow >= 0) {
+					 sessione = new Sessione(dataSessione, oraInizio, oraFine, locazione, conferenza, (Partecipante)coordinatoreTable.getModel().getValueAt(coordinatoreTable.convertRowIndexToModel(coordinatoreRow), 5), (Partecipante)keynoteTable.getModel().getValueAt(keynoteTable.convertRowIndexToModel(keynoteRow), 5));
+				}
+				else {
+					 sessione = new Sessione(dataSessione, oraInizio, oraFine, locazione, conferenza, (Partecipante)coordinatoreTable.getModel().getValueAt(coordinatoreTable.convertRowIndexToModel(coordinatoreRow), 5));
+
+				}
 				sessioneDAO.insert(sessione);
 				aggiungiSessione.RefreshComboBox();
 				AggiungiSessioneIndietro();

@@ -138,7 +138,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                 LocalDate data_sessione = rs.getDate("data_sessione").toLocalDate();
                 LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
-                conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, conferenza));
+                conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, null, conferenza, null));
             }
             
             rs.close();
@@ -181,7 +181,7 @@ public class ConferenzaPGDAO implements ConferenzaDAO {
                     LocalDate data_sessione = rs.getDate("data_sessione").toLocalDate();
                     LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                     LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
-                    conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, conferenza));
+                    conferenza.addSessione(new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, null, conferenza, null));
                 }
             }
             

@@ -11,21 +11,22 @@ public class Sessione {
     private Locazione locazione;
     private Conferenza conferenza;
     private Partecipante coordinatore;
+    private Partecipante keynote;
 
-    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Conferenza conferenza) {
-        this.id = id;
-        this.data_sessione = data_sessione;
-        this.ora_inizio = ora_inizio;
-        this.ora_fine = ora_fine;
-        this.conferenza = conferenza;
-    }
+//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Conferenza conferenza) {
+//        this.id = id;
+//        this.data_sessione = data_sessione;
+//        this.ora_inizio = ora_inizio;
+//        this.ora_fine = ora_fine;
+//        this.conferenza = conferenza;
+//    }
 
-    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine) {
-        this.id = id;
-        this.data_sessione = data_sessione;
-        this.ora_inizio = ora_inizio;
-        this.ora_fine = ora_fine;
-    }
+//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine) {
+//        this.id = id;
+//        this.data_sessione = data_sessione;
+//        this.ora_inizio = ora_inizio;
+//        this.ora_fine = ora_fine;
+//    }
 
     public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza, Partecipante coordinatore) {
         this.id = id;
@@ -47,21 +48,46 @@ public class Sessione {
         this.coordinatore = coordinatore;
     }
     
-    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza) {
-        this.id = id;
-        this.data_sessione = data_sessione;
-        this.ora_inizio = ora_inizio;
-        this.ora_fine = ora_fine;
-        this.locazione = locazione;
-        this.conferenza = conferenza;
-    }
+//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza) {
+//        this.id = id;
+//        this.data_sessione = data_sessione;
+//        this.ora_inizio = ora_inizio;
+//        this.ora_fine = ora_fine;
+//        this.locazione = locazione;
+//        this.conferenza = conferenza;
+//    }
+    
+    
     
 
     public LocalDate getData_sessione() {
         return data_sessione;
     }
 
-    public void setData_sessione(LocalDate data_sessione) {
+    public Sessione(LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza, Partecipante coordinatore, Partecipante keynote) {
+	super();
+	this.data_sessione = data_sessione;
+	this.ora_inizio = ora_inizio;
+	this.ora_fine = ora_fine;
+	this.locazione = locazione;
+	this.conferenza = conferenza;
+	this.coordinatore = coordinatore;
+	this.keynote = keynote;
+}
+    
+    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza, Partecipante coordinatore, Partecipante keynote) {
+	super();
+	this.id = id;
+	this.data_sessione = data_sessione;
+	this.ora_inizio = ora_inizio;
+	this.ora_fine = ora_fine;
+	this.locazione = locazione;
+	this.conferenza = conferenza;
+	this.coordinatore = coordinatore;
+	this.keynote = keynote;
+}
+
+	public void setData_sessione(LocalDate data_sessione) {
         this.data_sessione = data_sessione;
     }
 
@@ -110,8 +136,18 @@ public class Sessione {
     public void setLocazione(Locazione locazione) {
         this.locazione = locazione;
     }
+    
+    
 
-    @Override
+    public Partecipante getKeynote() {
+		return keynote;
+	}
+
+	public void setKeynote(Partecipante keynote) {
+		this.keynote = keynote;
+	}
+
+	@Override
     public String toString() {
         return "Sessione{" +
                 "id=" + id +

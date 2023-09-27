@@ -3,12 +3,17 @@ package UI;
 import java.awt.EventQueue;
 import java.time.YearMonth;
 import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
@@ -23,12 +28,17 @@ import DTO.Conferenza;
 import DTO.Locazione;
 import DTO.Partecipante;
 import principale.Controller;
+import tableModels.PartecipanteTableModel;
 
 import com.github.lgooddatepicker.components.DateTimePicker;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AggiungiSessione extends JFrame {
 
@@ -37,6 +47,10 @@ public class AggiungiSessione extends JFrame {
 	private Conferenza conferenza;
 	private Controller controller;
 	private JComboBox<Locazione> locazioneComboBox;
+	private JTable coordinatoreTable;
+	private JTable keynoteTable;
+	private JTextField cercaCoordinatore;
+	private JTextField cercaKeynote;
 
 	/**
 	 * Create the frame.
@@ -48,7 +62,7 @@ public class AggiungiSessione extends JFrame {
 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 345);
+		setBounds(100, 100, 652, 632);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -118,10 +132,11 @@ public class AggiungiSessione extends JFrame {
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.insertSessione(dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), new Partecipante(1));
+				System.out.print(coordinatoreTable.getSelectedRow());
+					controller.insertSessione(dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), coordinatoreTable.getSelectedRow(), coordinatoreTable, keynoteTable.getSelectedRow(), keynoteTable);
 			}
 		});
-		confermaButton.setBounds(427, 282, 117, 29);
+		confermaButton.setBounds(529, 569, 117, 29);
 		contentPane.add(confermaButton);
 		
 		JButton indietroButton = new JButton("Indietro");
@@ -130,8 +145,94 @@ public class AggiungiSessione extends JFrame {
 				controller.AggiungiSessioneIndietro();
 			}
 		});
-		indietroButton.setBounds(6, 282, 117, 29);
+		indietroButton.setBounds(6, 569, 117, 29);
 		contentPane.add(indietroButton);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 296, 386, 116);
+		contentPane.add(scrollPane);
+		
+		coordinatoreTable = new JTable();
+		controller.SetPartecipantiTableModel(coordinatoreTable);
+		controller.SetPartecipanti(coordinatoreTable);
+		scrollPane.setViewportView(coordinatoreTable);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 441, 386, 116);
+		contentPane.add(scrollPane_1);
+		
+		keynoteTable = new JTable();
+		controller.SetPartecipantiTableModel(keynoteTable);
+		controller.SetPartecipanti(keynoteTable);
+		scrollPane_1.setViewportView(keynoteTable);
+		
+		JLabel coordinatoreLabel = new JLabel("Coordinatore");
+		coordinatoreLabel.setBounds(6, 268, 95, 16);
+		contentPane.add(coordinatoreLabel);
+		
+		JLabel keynoteLabel = new JLabel("Keynote Speaker");
+		keynoteLabel.setBounds(6, 424, 117, 16);
+		contentPane.add(keynoteLabel);
+		
+		cercaCoordinatore = new JTextField();
+		cercaCoordinatore.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			    TableRowSorter<PartecipanteTableModel> sorter = new TableRowSorter<PartecipanteTableModel>(((PartecipanteTableModel)coordinatoreTable.getModel())); 
+			    List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+			    try {
+			        String text = cercaCoordinatore.getText();
+			        String[] textArray = text.split(" ");
+
+			        for (int i = 0; i < textArray.length; i++) {
+			        	System.out.println(textArray[i]);
+			            filters.add(RowFilter.regexFilter("(?i)" + textArray[i], 1, 2));
+			        }
+
+			    } catch (java.util.regex.PatternSyntaxException ex) {
+			            return;
+			    }
+			    sorter.setRowFilter(RowFilter.andFilter(filters));
+			    coordinatoreTable.setRowSorter(sorter);
+			}
+		});
+		cercaCoordinatore.setBounds(469, 386, 130, 26);
+		contentPane.add(cercaCoordinatore);
+		cercaCoordinatore.setColumns(10);
+		
+		cercaKeynote = new JTextField();
+		cercaKeynote.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			    TableRowSorter<PartecipanteTableModel> sorter = new TableRowSorter<PartecipanteTableModel>(((PartecipanteTableModel)keynoteTable.getModel())); 
+			    List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+			    try {
+			        String text = cercaKeynote.getText();
+			        String[] textArray = text.split(" ");
+
+			        for (int i = 0; i < textArray.length; i++) {
+			        	System.out.println(textArray[i]);
+			            filters.add(RowFilter.regexFilter("(?i)" + textArray[i], 1, 2));
+			        }
+
+			    } catch (java.util.regex.PatternSyntaxException ex) {
+			            return;
+			    }
+			    sorter.setRowFilter(RowFilter.andFilter(filters));
+			    keynoteTable.setRowSorter(sorter);
+			}
+		});
+		cercaKeynote.setBounds(469, 531, 130, 26);
+		contentPane.add(cercaKeynote);
+		cercaKeynote.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Cera Coordinatore");
+		lblNewLabel.setBounds(469, 368, 117, 16);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Cerca Keynote Speaker");
+		lblNewLabel_1.setBounds(469, 514, 154, 16);
+		contentPane.add(lblNewLabel_1);
 		
 		RefreshComboBox();
 		
