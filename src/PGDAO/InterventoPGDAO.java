@@ -2,6 +2,7 @@ package PGDAO;
 
 import DAO.InterventoDAO;
 import DTO.Intervento;
+import DTO.Istituzione;
 import DTO.Partecipante;
 import DTO.Sessione;
 import principale.DBConnection;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class InterventoPGDAO implements InterventoDAO {
@@ -30,14 +32,13 @@ public class InterventoPGDAO implements InterventoDAO {
             ResultSet rs = statement.executeQuery(sql);
 
             while(rs.next()) {
-                Intervento intervento = new Intervento();
-                intervento.setId(rs.getInt("id_intervento"));
-                intervento.setOraInizio(rs.getTime("ora_inizio").toLocalTime());
-                intervento.setOraFine(rs.getTime("ora_fine").toLocalTime());
-                intervento.setAbstract(rs.getString("abstract"));
-                intervento.setSessione(sessione);
-                intervento.setSpeaker(new Partecipante(rs.getInt("id_partecipante"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), rs.getString("istituzione")));
-
+            	int id = rs.getInt("id_intervento");
+            	LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
+            	LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
+            	String abstr = rs.getString("abstract");
+            	Partecipante speaker = new Partecipante(rs.getInt("id_partecipante"), rs.getString("nome"), rs.getString("cognome"), rs.getString("email"), new Istituzione(rs.getString("istituzione")));
+            	
+                Intervento intervento = new Intervento(id, ora_inizio, ora_fine, abstr, sessione, speaker);
                 interventi.add(intervento);
             }
             

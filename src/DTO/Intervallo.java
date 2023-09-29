@@ -9,10 +9,6 @@ public class Intervallo implements ElementoProgramma {
 	String tipo;
 	Sessione sessione;
 	
-	public Intervallo() {
-		
-	}
-	
 	public Intervallo(int id, LocalTime ora_inizio, LocalTime ora_fine, String tipo, Sessione sessione) {
 		super();
 		this.id = id;

@@ -18,9 +18,6 @@ public class Intervento implements ElementoProgramma{
         this.id_intervento = id_intervento;
     }
     
-    public Intervento() {
-    	
-    }
 
     public Intervento(Integer id_intervento, LocalTime ora_inizio, LocalTime ora_fine, String abstract1,
 			Sessione sessione, Partecipante speaker) {

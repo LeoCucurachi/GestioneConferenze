@@ -1,6 +1,7 @@
 package PGDAO;
 
 import DAO.PartecipanteDAO;
+import DTO.Istituzione;
 import DTO.Partecipante;
 import principale.DBConnection;
 
@@ -27,7 +28,7 @@ public class PartecipantePGDAO implements PartecipanteDAO {
             	String cognome = rs.getString("cognome");
             	String email = rs.getString("email");
             	String istituzione = rs.getString("istituzione");
-            	partecipanti.add(new Partecipante(id, nome, cognome, email, istituzione));
+            	partecipanti.add(new Partecipante(id, nome, cognome, email, new Istituzione(istituzione)));
             }
             
             rs.close();

@@ -2,6 +2,7 @@ package PGDAO;
 
 import DAO.SessioneDAO;
 import DTO.Conferenza;
+import DTO.Istituzione;
 import DTO.Locazione;
 import DTO.Partecipante;
 import DTO.Sessione;
@@ -66,11 +67,10 @@ public class SessionePGDAO implements SessioneDAO {
                 LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
                 Locazione locazione = new Locazione(rs.getInt("id_locazione"), rs.getString("nome_locazione"), conferenza.getLuogo());
-                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome_coordinatore"), rs.getString("cognome_coordinatore"), rs.getString("email_coordinatore"), rs.getString("istituzione_coordinatore"));
-                Partecipante keynote = new Partecipante(rs.getInt("keynote"), rs.getString("nome_keynote"), rs.getString("cognome_keynote"), rs.getString("email_keynote"), rs.getString("istituzione_keynote"));
+                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome_coordinatore"), rs.getString("cognome_coordinatore"), rs.getString("email_coordinatore"), new Istituzione(rs.getString("istituzione_coordinatore")));
+                Partecipante keynote = new Partecipante(rs.getInt("keynote"), rs.getString("nome_keynote"), rs.getString("cognome_keynote"), rs.getString("email_keynote"), new Istituzione(rs.getString("istituzione_keynote")));
                 
                 Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza, coordinatore, keynote);
-                System.out.println(sessione);
                 conferenza.addSessione(sessione);
                 
                 sessioni.add(sessione);
@@ -104,8 +104,8 @@ public class SessionePGDAO implements SessioneDAO {
                 LocalTime ora_inizio = rs.getTime("ora_inizio").toLocalTime();
                 LocalTime ora_fine = rs.getTime("ora_fine").toLocalTime();
                 Conferenza conferenza = new Conferenza(rs.getInt("id_conferenza"), rs.getDate("data_inizio").toLocalDate(), rs.getDate("data_fine").toLocalDate(), rs.getString("descrizione"), locazione.getLuogo());
-                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome_coordinatore"), rs.getString("cognome_coordinatore"), rs.getString("email_coordinatore"), rs.getString("istituzione_coordinatore"));
-                Partecipante keynote = new Partecipante(rs.getInt("keynote"), rs.getString("nome_keynote"), rs.getString("cognome_keynote"), rs.getString("email_keynote"), rs.getString("istituzione_keynote"));
+                Partecipante coordinatore = new Partecipante(rs.getInt("coordinatore"), rs.getString("nome_coordinatore"), rs.getString("cognome_coordinatore"), rs.getString("email_coordinatore"), new Istituzione(rs.getString("istituzione_coordinatore")));
+                Partecipante keynote = new Partecipante(rs.getInt("keynote"), rs.getString("nome_keynote"), rs.getString("cognome_keynote"), rs.getString("email_keynote"), new Istituzione(rs.getString("istituzione_keynote")));
                 Sessione sessione = new Sessione(id_sessione, data_sessione, ora_inizio, ora_fine, locazione, conferenza, coordinatore, keynote);
                 conferenza.addSessione(sessione);
                 

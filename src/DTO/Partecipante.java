@@ -5,20 +5,9 @@ public class Partecipante {
     private String nome;
     private String cognome;
     private String email;
-    private String istituzione;
-
-    public Partecipante(){
-
-    }
+    private Istituzione istituzione;
     
-    
-
-    public Partecipante(Integer id) {
-		super();
-		this.id = id;
-	}
-    
-    public Partecipante(int id, String nome, String cognome, String email, String istituzione) {
+    public Partecipante(int id, String nome, String cognome, String email, Istituzione istituzione) {
     	this.id = id;
     	this.nome = nome;
     	this.cognome = cognome;
@@ -60,11 +49,11 @@ public class Partecipante {
         this.email = email;
     }
 
-    public String getIstituzione() {
+    public Istituzione getIstituzione() {
         return istituzione;
     }
 
-    public void setIstituzione(String istituzione) {
+    public void setIstituzione(Istituzione istituzione) {
         this.istituzione = istituzione;
     }
 

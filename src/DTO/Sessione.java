@@ -13,21 +13,6 @@ public class Sessione {
     private Partecipante coordinatore;
     private Partecipante keynote;
 
-//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Conferenza conferenza) {
-//        this.id = id;
-//        this.data_sessione = data_sessione;
-//        this.ora_inizio = ora_inizio;
-//        this.ora_fine = ora_fine;
-//        this.conferenza = conferenza;
-//    }
-
-//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine) {
-//        this.id = id;
-//        this.data_sessione = data_sessione;
-//        this.ora_inizio = ora_inizio;
-//        this.ora_fine = ora_fine;
-//    }
-
     public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza, Partecipante coordinatore) {
         this.id = id;
         this.data_sessione = data_sessione;
@@ -48,18 +33,6 @@ public class Sessione {
         this.coordinatore = coordinatore;
     }
     
-//    public Sessione(Integer id, LocalDate data_sessione, LocalTime ora_inizio, LocalTime ora_fine, Locazione locazione, Conferenza conferenza) {
-//        this.id = id;
-//        this.data_sessione = data_sessione;
-//        this.ora_inizio = ora_inizio;
-//        this.ora_fine = ora_fine;
-//        this.locazione = locazione;
-//        this.conferenza = conferenza;
-//    }
-    
-    
-    
-
     public LocalDate getData_sessione() {
         return data_sessione;
     }

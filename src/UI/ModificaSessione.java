@@ -139,7 +139,7 @@ public class ModificaSessione extends JFrame {
 		JButton confermaButton = new JButton("Conferma");
 		confermaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.updateSessione(sessione.getId(), dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), new Partecipante(1));
+				controller.updateSessione(sessione.getId(), dataSessionePicker.getDate(), oraInizioPicker.getTime(), oraFinePicker.getTime(), conferenza, (Locazione)locazioneComboBox.getSelectedItem(), sessione.getCoordinatore());
 			}
 		});
 		confermaButton.setBounds(427, 282, 117, 29);

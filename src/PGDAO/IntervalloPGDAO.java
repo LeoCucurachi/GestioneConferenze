@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.github.lgooddatepicker.components.TimePickerSettings;
@@ -25,13 +26,12 @@ public class IntervalloPGDAO implements IntervalloDAO{
 	            ResultSet resultSet = statement.executeQuery(sql);
 
 	            while(resultSet.next()) {
-	            	Intervallo intervallo = new Intervallo();
-	                intervallo.setId(resultSet.getInt("id_intervallo"));
-	                intervallo.setOraInizio(resultSet.getTime("ora_inizio").toLocalTime());
-	                intervallo.setOraFine(resultSet.getTime("ora_fine").toLocalTime());
-	                intervallo.setSessione(sessione);
-	                intervallo.setTipo(resultSet.getString("tipo"));
-
+	            	int id = resultSet.getInt("id_intervallo");
+	            	LocalTime ora_inizio = resultSet.getTime("ora_inizio").toLocalTime();
+	            	LocalTime ora_fine = resultSet.getTime("ora_fine").toLocalTime();
+	            	String tipo = resultSet.getString("tipo");
+	            	
+	            	Intervallo intervallo = new Intervallo(id, ora_inizio, ora_fine, tipo, sessione);
 	                intervalli.add(intervallo);
 	            }
 	            

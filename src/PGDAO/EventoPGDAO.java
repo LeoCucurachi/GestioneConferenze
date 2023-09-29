@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import DAO.EventoDAO;
@@ -23,13 +24,12 @@ public class EventoPGDAO implements EventoDAO {
 	            ResultSet resultSet = statement.executeQuery(sql);
 
 	            while(resultSet.next()) {
-	            	Evento evento = new Evento();
-	                evento.setId(resultSet.getInt("id_evento"));
-	                evento.setOraInizio(resultSet.getTime("ora_inizio").toLocalTime());
-	                evento.setOraFine(resultSet.getTime("ora_fine").toLocalTime());
-	                evento.setSessione(sessione);
-	                evento.setTipo(resultSet.getString("tipo"));
-
+	            	int id = resultSet.getInt("id_evento");
+	            	LocalTime ora_inizio = resultSet.getTime("ora_inizio").toLocalTime();
+	            	LocalTime ora_fine = resultSet.getTime("ora_fine").toLocalTime();
+	            	String tipo = resultSet.getString("tipo");
+	            	
+	            	Evento evento = new Evento(id, ora_inizio, ora_fine, tipo, sessione);
 	                eventi.add(evento);
 	            }
 	            

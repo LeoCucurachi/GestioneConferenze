@@ -151,7 +151,6 @@ public class Controller {
     public void SetTableToSearchLocationConference(JTable table, String src, LocalDate from, LocalDate to) {
     	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
     	tableModel.setRowCount(0);
-    	System.out.println("qui");
     	ArrayList<Conferenza> conferenze = conferenzaDAO.getAll();
     	for (Conferenza conferenza:conferenze) {
     		boolean condition = (from == null && to == null) || (from != null && to == null && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))) || (from == null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to))) || (from != null && to != null && (conferenza.getData_fine().isBefore(to) || conferenza.getData_fine().isEqual(to)) && (conferenza.getData_inizio().isAfter(from) || conferenza.getData_inizio().isEqual(from))); 
@@ -321,16 +320,6 @@ public class Controller {
 	        defaultTableColumnModel.removeColumn(table.getColumn("Sessione"));  
 
 	}
-	
-//	public void SetTableToAllSessions(JTable table, Conferenza conferenza) {
-//    	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
-//    	tableModel.setRowCount(0);
-//    	ArrayList<Sessione> sessioni = sessioneDAO.getSessioniOfConferenza(conferenza);
-//    	for (Sessione sessione:sessioni) {
-//    		System.out.println(sessione.getId());
-//            tableModel.addRow(new Object[]{sessione.getId(), sessione.getData_sessione(), sessione.getOra_inizio(), sessione.getOra_fine(), sessione.getLocazione(), sessione, sessione.getCoordinatore(), sessione.getKeynote()});
-//        }
-//	}
 	
 	public void SetTableToSessionOfDate(JTable table, Conferenza conferenza, LocalDate date) {
     	DefaultTableModel tableModel = (DefaultTableModel)table.getModel();

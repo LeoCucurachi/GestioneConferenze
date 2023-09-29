@@ -9,10 +9,6 @@ public class Evento {
 	String tipo;
 	Sessione sessione;
 	
-	public Evento() {
-		
-	}
-	
 	public Evento(int id, LocalTime ora_inizio, LocalTime ora_fine, String tipo, Sessione sessione) {
 		super();
 		this.id = id;
